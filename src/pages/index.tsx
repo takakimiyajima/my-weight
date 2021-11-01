@@ -1,37 +1,27 @@
 import Head from 'next/head'
 import React from 'react'
 import useSWR from 'swr'
+import { WeightEntity } from '@/entities'
+import { WeightRepository } from '@/repositories'
 import styles from '@/styles/Home.module.css'
 
-type Weight = {
-  id: string,
-  createdAt: string,
-  updatedAt: string,
-  publishedAt: string,
-  revisedAt: string,
-  weight: number,
-  workOutDate: string
-}
-
 type Props = {
-  weights: Array<Weight>
+  weights: Array<WeightEntity>
 }
 
 export async function getServerSideProps() {
-  const key = {
-    headers: { 'X-API-KEY': process.env.API_KEY ?? '' }
-  }
+  try {
+    const weights = await WeightRepository.fetchWeights()
 
-  const res = await fetch('https://takakimiyajima.microcms.io/api/v1/weight', key)
-  const json = await res.json()
-
-  return {
-    props: {
-      weights: json.contents
+    return {
+      props: {
+        weights
+      }
     }
-  }
+  } catch (error) {
+    console.log(error)
+  } 
 }
-
 
 export default function Home(props: Props): JSX.Element {
   return (
