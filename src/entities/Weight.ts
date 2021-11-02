@@ -26,7 +26,7 @@ export class WeightMapper {
   ): WeightEntity => {
     return {
       weight: weight.weight,
-      workOutDate: dayjs(weight.workOutDate).format('yyyy-MM-dd'),
+      workOutDate: dayjs(weight.workOutDate).format('YYYY-MM-DD'),
     };
   };
 }

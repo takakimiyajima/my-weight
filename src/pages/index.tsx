@@ -23,6 +23,7 @@ export async function getServerSideProps() {
 }
 
 export default function Home(props: Props) {
+  // TODO: prepare some component
   return (
     <div className={styles.container}>
       <Head>
@@ -32,10 +33,15 @@ export default function Home(props: Props) {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">{props.weights[0].weight}</a>
-        </h1>
+        <h1 className={styles.title}>How is your goal??</h1>
       </main>
+
+      {props.weights.map((weight, index) => (
+        <div key={index}>
+          <p>{weight.weight}</p>
+          <p>{weight.workOutDate}</p>
+        </div>
+      ))}
 
       <footer className={styles.footer}>
         <p>Powered by Takaki Miyajima</p>
