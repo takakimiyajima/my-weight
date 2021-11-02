@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import ca from 'dayjs/locale/ca'
 dayjs.locale(ca)
+import { sort } from '@/utils'
 
 /** api type */
 type Weight = {
@@ -27,6 +28,24 @@ export class WeightMapper {
     return {
       weight: weight.weight,
       workOutDate: dayjs(weight.workOutDate).format('YYYY-MM-DD'),
-    };
-  };
+    }
+  }
+
+  /**
+   * Sort descending order for array
+   * @param weights 
+   */
+  static sortWorkOutDate = (
+    weights: Array<WeightEntity>
+  ) => {
+    weights.sort((a, b) => {
+      if (a.workOutDate < b.workOutDate) {
+        return 1
+      }
+      
+      return -1
+    })
+  
+    return weights
+  }
 }

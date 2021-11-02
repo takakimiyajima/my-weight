@@ -7,12 +7,14 @@ const key = {
 
 export class WeightRepository {
   /** TODO: fetch using userID */
-  static fetchWeights = async (): Promise<WeightEntity> => {
+  static fetchWeights = async (): Promise<Array<WeightEntity>> => {
     try {
       const res = await fetch(API_ENDPOINT, key)
       const json = await res.json()
 
-      return json.contents.map((weight) => WeightMapper.getWeightEntity(weight))
+      const weightEntities = json.contents.map((weight) => WeightMapper.getWeightEntity(weight))
+
+      return WeightMapper.sortWorkOutDate(weightEntities)
     } catch (error) {
       console.error(error)
     }
