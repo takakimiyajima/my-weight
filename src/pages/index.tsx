@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import React from 'react'
-import useSWR from 'swr'
 import { WeightEntity } from '@/entities'
 import { WeightRepository } from '@/repositories'
 import styles from '@/styles/Home.module.css'
@@ -23,7 +22,7 @@ export async function getServerSideProps() {
   } 
 }
 
-export default function Home(props: Props): JSX.Element {
+export default function Home(props: Props) {
   return (
     <div className={styles.container}>
       <Head>

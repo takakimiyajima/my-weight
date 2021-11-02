@@ -1,3 +1,17 @@
 {
-  "extends": "next/core-web-vitals"
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    // Add "prettier" last. This will turn off eslint rules conflicting with prettier. This is not what will format our code.
+    "prettier"
+  ],
+  "rules": {
+    // セミコロンない場合、エラー出力
+    "prefer-const": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-empty-interface": "off"
+  }
 }
