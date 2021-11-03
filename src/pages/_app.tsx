@@ -1,4 +1,6 @@
-import Head from "next/head";
+import Head from "next/head"
+import { ThemeProvider } from "styled-components"
+import { THEME } from "@/constants"
 import "@/styles/destyle.css"
 import "@/styles/globals.css"
 
@@ -8,7 +10,9 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <meta name="format-detection" content="telephone=no" />
       </Head>
-      <Component {...pageProps} />
+      <ThemeProvider theme={THEME}>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   )
 }
