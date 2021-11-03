@@ -23,7 +23,7 @@ export async function getServerSideProps() {
 }
 
 export default function Home(props: Props) {
-  // TODO: prepare some component
+  // TODO: prepare some components
   return (
     <div className={styles.container}>
       <Head>
