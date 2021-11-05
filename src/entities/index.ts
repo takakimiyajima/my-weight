@@ -2,4 +2,4 @@
  * entry point for entities
  */
 
-export * from './weight'
+export * from './Weight'
