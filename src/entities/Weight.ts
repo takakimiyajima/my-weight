@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import ca from 'dayjs/locale/ca'
 dayjs.locale(ca)
-import { sort } from '@/utils'
 
 /** api type */
 type Weight = {
