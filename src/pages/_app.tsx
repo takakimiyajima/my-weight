@@ -1,17 +1,25 @@
 import Head from "next/head"
+import { AppProps } from "next/dist/shared/lib/router/router"
 import { ThemeProvider } from "styled-components"
 import { THEME } from "@/constants"
 import "@/styles/destyle.css"
 import "@/styles/globals.css"
+import { UserAgentContextProvider } from "@/libs/userAgentProvider"
 
-function MyApp({ Component, pageProps }) {
+type Props = {
+  userAgent?: string;
+} & AppProps;
+
+function MyApp({ Component, pageProps, uaString }: Props) {
   return  (
     <>
       <Head>
         <meta name="format-detection" content="telephone=no" />
       </Head>
       <ThemeProvider theme={THEME}>
-        <Component {...pageProps} />
+        <UserAgentContextProvider uaString={uaString}>
+          <Component {...pageProps} />
+        </UserAgentContextProvider>
       </ThemeProvider>
     </>
   )
