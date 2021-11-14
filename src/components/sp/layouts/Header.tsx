@@ -1,3 +1,4 @@
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -8,13 +9,16 @@ type Props = {
 
 /** Logo for SP */
 const Logo = () => (
-  <Link href="/" passHref>
-    <Image
-      src="/sp/logo.png"
-      alt="logoSP"
-      width="140"
-      height="70"
-    />
+  <Link href='/' passHref>
+    {/** NOTE: https://github.com/vercel/next.js/issues/7915 */}
+    <>
+      <Image
+        src="/sp/logo.png"
+        alt="logoSP"
+        width="140"
+        height="70"
+      />
+    </>
   </Link>
 )
 
