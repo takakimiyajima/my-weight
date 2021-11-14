@@ -1,6 +1,7 @@
 import Head from 'next/head'
 // import styled from 'styled-components'
 import { WeightEntity } from '@/entities'
+import { Header } from '@/components/sp/layouts/Header'
 
 // const Wrapper = styled.div`
 //   margin: 24px 0;
@@ -23,9 +24,7 @@ export const SpScreen = ({ weights }: Props): JSX.Element => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="">
-        <h1 className="">How is your goal??</h1>
-      </main>
+      <Header />
 
       {weights.map((weight, index) => (
         <div key={index}>
