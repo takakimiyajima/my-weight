@@ -37,13 +37,7 @@ export class WeightMapper {
   static sortWorkOutDate = (
     weights: Array<WeightEntity>
   ) => {
-    weights.sort((a, b) => {
-      if (a.workOutDate < b.workOutDate) {
-        return 1
-      }
-      
-      return -1
-    })
+    weights.sort((a, b) => a.workOutDate < b.workOutDate ? 1 : -1)
   
     return weights
   }
