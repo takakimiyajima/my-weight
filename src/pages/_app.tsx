@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components"
 import { THEME } from "@/constants"
 import "@/styles/destyle.css"
 import "@/styles/globals.css"
-import { UserAgentContextProvider } from "@/contexts/userAgentProvider"
+import { UserAgentContextProvider } from "@/contexts/userAgent/userAgentProvider"
 
 type Props = {
   userAgent?: string;

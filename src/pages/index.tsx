@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import { SpScreen } from "@/components/sp/screens"
-import { useUserAgent } from "@/contexts/useUserAgent"
+import { useUserAgent } from "@/contexts/userAgent/useUserAgent"
 import { WeightEntity } from '@/entities'
 import { WeightRepository } from '@/repositories'
 
