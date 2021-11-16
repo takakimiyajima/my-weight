@@ -31,7 +31,7 @@ const Component = ({ className }: Props): JSX.Element => (
 )
 
 export const StyledComponent = styled(Component)`
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
   position: fixed;
   top: 0;
@@ -41,6 +41,7 @@ export const StyledComponent = styled(Component)`
 
   > .header-top {
     position: relative;
+    margin: -8px 0 -10px;
     text-align: center;
   }
 `
