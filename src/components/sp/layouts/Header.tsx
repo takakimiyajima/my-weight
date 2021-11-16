@@ -31,6 +31,7 @@ const Component = ({ className }: Props): JSX.Element => (
 )
 
 export const StyledComponent = styled(Component)`
+  background: ${(props) => props.theme.white};
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
   position: fixed;
