@@ -1,34 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+🚧️  This app is still WIP 🚧️
 
-## Getting Started
+# About
+![top_logo](https://user-images.githubusercontent.com/12868082/142035617-95388062-082e-4f6e-8c16-5f24f63bfa56.png)
 
-First, run the development server:
+This is a app you can check your weight daily.
 
-```bash
-npm run dev
-# or
-yarn dev
+
+# Why I created this app
+I created this app to show my developing skill.  
+I can write clean codes in Next.js and TypeScript with good architecture which makes the app sustainable.
+
+<!-- TODO: 工夫した点とか記載する -->
+
+<!-- TODO: 可能であればUIデザインもアピールする -->
+
+# Language, Libraries and Tools
+- Next.js
+- TypeScript
+- styled-components
+- Sass
+- eslint, prettier
+- husky
+- microCMS
+- Vercel
+
+In order to work with architecture, I'm conscious of AtomicDesign and CleanArchitecture. They enables you to write clean and readable codes by separation of concerns.
+
+I intend to write test codes using Jest but I wanted to put a priority on developing features so I haven't written test cases this time yet. Of course, I know that writing test first is better though.
+
+# Architecture
+<img width="718" alt="Architecture" src="https://user-images.githubusercontent.com/12868082/142047361-bace11d6-6065-4164-bf2b-02a26f16eeed.png">
+
+## Data Layer
+In data layer there are Repository, Entity and Hook. All of them has interface therefore it's easy to replace module and test. 
+
+Repository is just responsible for getting data from API(microCMS in this case).  
+For instance, `WeightRepository` connects to API to get weight-related data, and `UserRepository` connects to API to get user data.  
+The role of the Entity is to make the front application independent of the values returned by microCMS.
+It has a method for mapping JSON returned from the endpoint to the domain type.
+If you need some data using each entities, you can use hooks and make data at presentation upper layer such as Pages.
+## UI Layer
+UI layer architecture is aware of AtomicDesign.
+I'm using `next-useragent` to separate the SP and PC UI.
+
+# CI and Deployment
+Checking eslint is done with husky when it is committed.
+Deployment is done automatically by Vercel.
+
+# Upcoming Features
+- login logout
+- Notifications
+- Cache data using SWR
+
+# License
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Copyright 2021 Takaki Miyajima
+```
