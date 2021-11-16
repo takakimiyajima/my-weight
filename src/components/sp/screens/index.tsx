@@ -2,9 +2,9 @@ import styled from 'styled-components'
 import { WeightEntity } from '@/entities'
 import { Header } from '@/components/sp/layouts/Header'
 
-const Wrapper = styled.div`
-  margin: 24px 0;
-`
+// const Wrapper = styled.div`
+//   margin: 24px 0;
+// `
 
 type ContainerProps = {
   weights: Array<WeightEntity>
@@ -30,18 +30,31 @@ export const Component = ({ className, weights }: Props): JSX.Element => {
           <div className="title">Body weight</div>
           <div className="shape">Body shape</div>
           <div className="weight">{weights[0].weight}<span className="kg">kg</span></div>
-
+        </div>
+        <div className="sub-parameters">
+          <div className="container">
+            {/** BMI: 標準体重指数 */}
+            <div className="title">BMI</div>
+            <div className="shape">Obesity</div>
+            <div className="weight">{weights[0].weight}<span className="kg">kg</span></div>
+          </div>
+          <div className="container">
+            {/** SBW(standard body weight): 標準体重 */}
+            <div className="title">SBW</div>
+            <div className="shape">Body shape</div>
+            <div className="weight">{weights[0].weight}<span className="kg">kg</span></div>
+          </div>
         </div>
       </div>
 
-      <Wrapper>
+      {/* <Wrapper>
         {weights.map((weight, index) => (
           <div key={index}>
             <p>{weight.weight}</p>
             <p>{weight.workOutDate}</p>
           </div>
         ))}
-      </Wrapper>
+      </Wrapper> */}
 
       {/* <footer className="">
         <p>Powered by Takaki Miyajima</p>
@@ -59,7 +72,7 @@ const StyledComponent = styled(Component)`
     color: ${(props) => props.theme.white};
     background: ${(props) => props.theme.orange};
     width: 100%;
-    height: 250px;
+    height: 300px;
     border-radius: 10px;
 
     > .title {
@@ -79,7 +92,54 @@ const StyledComponent = styled(Component)`
       }
     }
   }
+
+  > .sub-parameters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+
+    > .container {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 10px;
+      width: 48%;
+      height: 160px;
+      color: ${(props) => props.theme.white};
+      background: ${(props) => props.theme.yellow};
+
+      > .title {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      > .shape {
+        font-size: 12px;
+      }
+
+      > .weight {
+        text-align: center;
+        font-size: 40px;
+        > .kg {
+          margin-left: 10px;
+          font-size: 20px;
+        }
+      }
+    }
+  }
 `
+
+// ${(props) => {
+//   switch (props.pageType) {
+//     case "top":
+//       return `padding-top: 62px;`;
+//     case "app_article":
+//       return `padding-top: 0px;`;
+//     case "other":
+//       return `padding-top: 44px;`;
+//   }
+// }}
 
 export const SpScreen = (props: Props): JSX.Element => {
   return <StyledComponent {...props} />;
