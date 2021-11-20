@@ -1,36 +1,39 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import { WeightContext, WeightContextType } from './weightContext'
+import { WeightEntity } from '@/entities/Weight'
 
 export interface ProviderProps {
   children?: React.ReactNode
+  weights: Array<WeightEntity>
 }
 export const WeightContextProvider = ({
   children,
+  weights
 }: ProviderProps) => {
-
-  /** default value */
-  const context: WeightContextType = useContext(WeightContext)
-
-  const [weight, setWeight] = useState(context.weight)
+  const latestWeight = () => {
+    return weights[0].weight || null
+  }
 
   /** BMI:　体重(kg) ÷ {身長(m) Ｘ 身長(m)} */
   const bmi = () => {
-    const height = 1.78
-    const lastWeight = weight[0].weight
+    if (!latestWeight()) {
+      return null
+    }
 
-    return lastWeight / height**2
+    const height = 1.78
+    return (latestWeight() / height**2).toFixed(1)
   }
 
   /** BMI:　体重(kg) ÷ {身長(m) Ｘ 身長(m)} */
   const sbw = () => {
     const height = 1.78
 
-    return 22 * height**2
+    return (22 * height**2).toFixed(1)
   }
 
   const newContext: WeightContextType = {
-    weight,
-    setWeight,
+    weights,
+    latestWeight,
     bmi,
     sbw,
   }

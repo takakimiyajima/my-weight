@@ -4,6 +4,7 @@ import { SpScreen } from "@/components/sp/screens"
 import { useUserAgent } from "@/contexts/userAgent/useUserAgent"
 import { WeightEntity } from '@/entities'
 import { WeightRepository } from '@/repositories'
+import { WeightContextProvider } from '@/contexts/weight/weightProvider'
 
 type Props = {
   weights: Array<WeightEntity>
@@ -24,9 +25,12 @@ export async function getServerSideProps() {
 }
 
 export default function Home(props: Props) {
-  // TODO: when data missing, show error page
-
   const userDevice = useUserAgent()
+  // TODO: when data missing, show error page
+  if (!props.weights.length) {
+    return <p>loading...</p>;
+  }
+
   // TODO: prepare some components
   return (
     <>
@@ -36,12 +40,14 @@ export default function Home(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {userDevice.isMobile ? (
-        <SpScreen weights={props.weights} />
-      ) : (
-        <p>Under Construction for PC</p>
-        // <PcContent data={props} />
-      )}
+      <WeightContextProvider weights={props.weights}>
+        {userDevice.isMobile ? (
+          <SpScreen />
+        ) : (
+          <p>Under Construction for PC</p>
+          // <PcContent />
+        )}
+      </WeightContextProvider>
     </>
   )
 }

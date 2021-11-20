@@ -2,16 +2,15 @@ import { createContext } from 'react'
 import { WeightEntity } from '@/entities'
 
 export interface WeightContextType {
-  weight: Array<WeightEntity>
-  setWeight: (weight: Array<WeightEntity>) => void,
-  bmi: () => number | null
-  sbw:() => number | null
+  weights: Array<WeightEntity>
+  latestWeight: () => number | null
+  bmi: () => string | null
+  sbw:() => string | null
 }
 
 export const WeightContext = createContext<WeightContextType>({
-  weight: [],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setWeight: (weight: Array<WeightEntity>) => {},
+  weights: [],
+  latestWeight: () => null,
   bmi: () => null,
   sbw: () => null
 })

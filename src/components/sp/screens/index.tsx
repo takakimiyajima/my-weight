@@ -1,25 +1,19 @@
+import React, { useContext } from 'react'
+import { WeightContext } from '@/contexts/weight/weightContext'
 import styled from 'styled-components'
-import { WeightEntity } from '@/entities'
+// import { WeightEntity } from '@/entities'
 import { Header } from '@/components/sp/layouts/Header'
 
 // const Wrapper = styled.div`
 //   margin: 24px 0;
 // `
 
-type ContainerProps = {
-  weights: Array<WeightEntity>
-}
-
 type Props = {
   className?: string
-} & ContainerProps
+}
 
-
-
-export const Component = ({ className, weights }: Props): JSX.Element => {
-  if (!weights.length) {
-    return <p>loading...</p>;
-  }
+export const Component = ({ className }: Props): JSX.Element => {
+  const weights = useContext(WeightContext)
 
   return (
     <>
@@ -29,20 +23,20 @@ export const Component = ({ className, weights }: Props): JSX.Element => {
         <div className="weight-weekly-container">
           <div className="title">Body weight</div>
           <div className="shape">Body shape</div>
-          <div className="weight">{weights[0].weight}<span className="kg">kg</span></div>
+          <div className="weight">{weights.latestWeight()}<span className="kg">kg</span></div>
         </div>
         <div className="sub-parameters">
           <div className="container">
             {/** BMI: 標準体重指数 */}
             <div className="title">BMI</div>
             <div className="shape">Obesity</div>
-            <div className="weight">{weights[0].weight}<span className="kg">kg</span></div>
+            <div className="weight">{weights.bmi()}<span className="kg">kg</span></div>
           </div>
           <div className="container">
             {/** SBW(standard body weight): 標準体重 */}
             <div className="title">SBW</div>
             <div className="shape">Body shape</div>
-            <div className="weight">{weights[0].weight}<span className="kg">kg</span></div>
+            <div className="weight">{weights.sbw()}<span className="kg">kg</span></div>
           </div>
         </div>
       </div>
