@@ -13,7 +13,7 @@ type Props = {
 }
 
 export const Component = ({ className }: Props): JSX.Element => {
-  const weights = useContext(WeightContext)
+  const { latestWeight, bmi, sbw } = useContext(WeightContext)
 
   return (
     <>
@@ -23,20 +23,20 @@ export const Component = ({ className }: Props): JSX.Element => {
         <div className="weight-weekly-container">
           <div className="title">Body weight</div>
           <div className="shape">Body shape</div>
-          <div className="weight">{weights.latestWeight()}<span className="kg">kg</span></div>
+          <div className="weight">{latestWeight()}<span className="kg">kg</span></div>
         </div>
         <div className="sub-parameters">
           <div className="container">
             {/** BMI: 標準体重指数 */}
             <div className="title">BMI</div>
             <div className="shape">Obesity</div>
-            <div className="weight">{weights.bmi()}<span className="kg">kg</span></div>
+            <div className="weight">{bmi()}<span className="kg">kg</span></div>
           </div>
           <div className="container">
             {/** SBW(standard body weight): 標準体重 */}
             <div className="title">SBW</div>
             <div className="shape">Body shape</div>
-            <div className="weight">{weights.sbw()}<span className="kg">kg</span></div>
+            <div className="weight">{sbw()}<span className="kg">kg</span></div>
           </div>
         </div>
       </div>

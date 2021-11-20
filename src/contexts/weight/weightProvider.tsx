@@ -24,7 +24,7 @@ export const WeightContextProvider = ({
     return (latestWeight() / height**2).toFixed(1)
   }
 
-  /** BMI:　体重(kg) ÷ {身長(m) Ｘ 身長(m)} */
+  /** SBW(standard body weight): 標準体重 */
   const sbw = () => {
     const height = 1.78
 
@@ -32,7 +32,7 @@ export const WeightContextProvider = ({
   }
 
   const newContext: WeightContextType = {
-    weights,
+    weeklyData: weights,
     latestWeight,
     bmi,
     sbw,
