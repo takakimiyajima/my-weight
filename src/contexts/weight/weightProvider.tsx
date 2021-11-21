@@ -1,6 +1,7 @@
 import React from 'react'
 import { UserWeightContext, UserWeightContextType } from './weightContext'
 import { UserEntity, WeightEntity } from '@/entities'
+import { getTheLastOneWeek } from '@/utils'
 
 export interface ProviderProps {
   children?: React.ReactNode
@@ -20,6 +21,22 @@ export const UserWeightContextProvider = ({
     return user.height / 100
   }
 
+  const weeklyWeights = () => {
+    return getTheLastOneWeek().map((day) => {
+      const hasData = weights.find(({ workOutDate }) => workOutDate === day)
+      
+      return hasData
+        ?  {
+          weight: hasData.weight,
+          day
+        }
+        : {
+          weight: null,
+          day
+        }
+    })
+  }
+
   /** BMI:　体重(kg) ÷ {身長(m) Ｘ 身長(m)} */
   const bmi = () => {
     if (!latestWeight()) {
@@ -35,7 +52,7 @@ export const UserWeightContextProvider = ({
   }
 
   const newContext: UserWeightContextType = {
-    weeklyData: weights,
+    weeklyWeights,
     latestWeight,
     bmi,
     sbw,

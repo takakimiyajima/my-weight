@@ -1,6 +1,4 @@
-import dayjs from 'dayjs';
-import ca from 'dayjs/locale/ca'
-dayjs.locale(ca)
+import { getFormattedDate } from '@/utils'
 
 /** api type */
 export type Weight = {
@@ -26,7 +24,7 @@ export class WeightMapper {
   ): WeightEntity => {
     return {
       weight: weight.weight,
-      workOutDate: dayjs(weight.workOutDate).format('YYYY-MM-DD'),
+      workOutDate: getFormattedDate(weight.workOutDate),
     }
   }
 }
