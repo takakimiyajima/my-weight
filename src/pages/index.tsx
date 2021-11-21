@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { signIn, useSession } from "next-auth/client"
+import { signIn, useSession, getSession } from "next-auth/client"
 import { SpScreen } from "@/components/sp/screens"
 import { useUserAgent } from "@/contexts/userAgent/useUserAgent"
 import { WeightEntity } from '@/entities'
@@ -11,9 +11,10 @@ type Props = {
   weights: Array<WeightEntity>
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   try {
-    const weights = await WeightRepository.fetchWeights()
+    const session = await getSession(context)
+    const weights = await WeightRepository.fetchWeights(session.userId as number)
 
     return {
       props: {
@@ -21,7 +22,7 @@ export async function getServerSideProps() {
       }
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
   } 
 }
 
@@ -29,6 +30,7 @@ export default function Home(props: Props) {
   const [session, loading] = useSession()
   const userDevice = useUserAgent()
   // TODO: when data missing, show error page
+
   return (
     <>
       {!session && (
