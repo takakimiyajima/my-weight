@@ -29,9 +29,6 @@ export default function Home(props: Props) {
   const [session, loading] = useSession()
   const userDevice = useUserAgent()
   // TODO: when data missing, show error page
-  if (!props.weights.length) {
-    return <p>loading...</p>
-  }
 
   // TODO: prepare some components
   return (
