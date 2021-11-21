@@ -18,8 +18,6 @@ export async function getServerSideProps(context) {
     const userId = session.userId as number
     /** API */
     const user = await UserRepository.fetchUser(userId)
-    console.log('user')
-    console.log(user)
     /** TODO: when user cannot get */
     const weights = await WeightRepository.fetchWeights(user.id)
 
@@ -65,7 +63,7 @@ export default function Home(props: Props) {
             {userDevice.isMobile ? (
               <SpScreen />
             ) : (
-              <p>Under Construction for PC{session.userId}</p>
+              <p>Under Construction for PC</p>
               // <PcContent />
             )}
           </UserWeightContextProvider>

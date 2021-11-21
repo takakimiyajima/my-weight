@@ -3,16 +3,12 @@ import { UserWeightContext } from '@/contexts/weight/weightContext'
 import styled from 'styled-components'
 import { Header } from '@/components/sp/layouts/Header'
 
-// const Wrapper = styled.div`
-//   margin: 24px 0;
-// `
-
 type Props = {
   className?: string
 }
 
 export const Component = ({ className }: Props): JSX.Element => {
-  const { latestWeight, bmi, sbw, weeklyData } = useContext(UserWeightContext)
+  const { latestWeight, bmi, sbw } = useContext(UserWeightContext)
 
   return (
     <>
@@ -40,13 +36,6 @@ export const Component = ({ className }: Props): JSX.Element => {
         </div>
       </div>
 
-      {weeklyData.map((weight, index) => (
-        <div key={index}>
-          <p>{weight.weight}</p>
-          <p>{weight.workOutDate}</p>
-        </div>
-      ))}
-
       {/* <footer className="">
         <p>Powered by Takaki Miyajima</p>
       </footer> */}
@@ -58,7 +47,7 @@ export const Component = ({ className }: Props): JSX.Element => {
 const StyledComponent = styled(Component)`
   padding: 74px 20px 40px;
 
-   > .weight-weekly-container {
+  > .weight-weekly-container {
     padding: 12px;
     color: ${(props) => props.theme.white};
     background: ${(props) => props.theme.orange};
