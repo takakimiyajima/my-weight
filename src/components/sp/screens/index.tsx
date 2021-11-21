@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { WeightContext } from '@/contexts/weight/weightContext'
+import { UserWeightContext } from '@/contexts/weight/weightContext'
 import styled from 'styled-components'
 import { Header } from '@/components/sp/layouts/Header'
 
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const Component = ({ className }: Props): JSX.Element => {
-  const { latestWeight, bmi, sbw, weeklyData } = useContext(WeightContext)
+  const { latestWeight, bmi, sbw, weeklyData } = useContext(UserWeightContext)
 
   return (
     <>
@@ -29,7 +29,7 @@ export const Component = ({ className }: Props): JSX.Element => {
             {/** BMI: 標準体重指数 */}
             <div className="title">BMI</div>
             <div className="shape">Obesity</div>
-            <div className="weight">{bmi()}<span className="kg">kg</span></div>
+            <div className="weight">{bmi()}<span className="kg"></span></div>
           </div>
           <div className="container">
             {/** SBW(standard body weight): 標準体重 */}

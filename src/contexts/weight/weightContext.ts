@@ -1,16 +1,16 @@
 import { createContext } from 'react'
 import { WeightEntity } from '@/entities'
 
-export interface WeightContextType {
+export interface UserWeightContextType {
   weeklyData: Array<WeightEntity>
   latestWeight: () => number | null
   bmi: () => string | null
-  sbw:() => string | null
+  sbw: () => string | null
 }
 
-export const WeightContext = createContext<WeightContextType>({
+export const UserWeightContext = createContext<UserWeightContextType>({
   weeklyData: [],
   latestWeight: () => null,
   bmi: () => null,
-  sbw: () => null
+  sbw: () => null,
 })

@@ -1,17 +1,23 @@
 import React from 'react'
-import { WeightContext, WeightContextType } from './weightContext'
-import { WeightEntity } from '@/entities/Weight'
+import { UserWeightContext, UserWeightContextType } from './weightContext'
+import { UserEntity, WeightEntity } from '@/entities'
 
 export interface ProviderProps {
   children?: React.ReactNode
+  user: UserEntity
   weights: Array<WeightEntity>
 }
-export const WeightContextProvider = ({
+export const UserWeightContextProvider = ({
   children,
-  weights
+  user,
+  weights,
 }: ProviderProps) => {
   const latestWeight = () => {
     return weights[0].weight || null
+  }
+
+  const getMeterHeight = (): number => {
+    return user.height / 100
   }
 
   /** BMI:　体重(kg) ÷ {身長(m) Ｘ 身長(m)} */
@@ -20,18 +26,15 @@ export const WeightContextProvider = ({
       return null
     }
 
-    const height = 1.78
-    return (latestWeight() / height**2).toFixed(1)
+    return (latestWeight() / (getMeterHeight() ** 2)).toFixed(1)
   }
 
   /** SBW(standard body weight): 標準体重 */
   const sbw = () => {
-    const height = 1.78
-
-    return (22 * height**2).toFixed(1)
+    return (22 * (getMeterHeight() ** 2)).toFixed(1)
   }
 
-  const newContext: WeightContextType = {
+  const newContext: UserWeightContextType = {
     weeklyData: weights,
     latestWeight,
     bmi,
@@ -39,8 +42,8 @@ export const WeightContextProvider = ({
   }
 
   return (
-    <WeightContext.Provider value={newContext}>
+    <UserWeightContext.Provider value={newContext}>
       {children}
-    </WeightContext.Provider>
-    )
+    </UserWeightContext.Provider>
+  )
 }

@@ -3,7 +3,7 @@ import ca from 'dayjs/locale/ca'
 dayjs.locale(ca)
 
 /** api type */
-type Weight = {
+export type Weight = {
   id: string,
   createdAt: string,
   updatedAt: string,
