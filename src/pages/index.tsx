@@ -60,7 +60,7 @@ export default function Home(props: Props) {
             {userDevice.isMobile ? (
               <SpScreen />
             ) : (
-              <p>Under Construction for PC</p>
+              <p>Under Construction for PC{session.userId}</p>
               // <PcContent />
             )}
           </WeightContextProvider>
