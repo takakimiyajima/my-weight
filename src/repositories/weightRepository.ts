@@ -1,18 +1,18 @@
-import { API_ENDPOINT } from '@/constants'
+import { mCMSClient } from "@/libs/client";
 import { WeightEntity, WeightMapper } from '@/entities'
-
-const key = {
-  headers: { 'X-API-KEY': process.env.API_KEY ?? '' }
-}
 
 export class WeightRepository {
   /** TODO: fetch using userID */
-  static fetchWeights = async (): Promise<Array<WeightEntity>> => {
+  static fetchWeights = async (userId: number): Promise<Array<WeightEntity>> => {
     try {
-      const res = await fetch(API_ENDPOINT, key)
-      const json = await res.json()
+      const res = await mCMSClient.get({
+        endpoint: "weight",
+        queries: {
+          filters: `userId[equals]${userId}`,
+        },
+      })
 
-      const weightEntities = json.contents.map((weight) => WeightMapper.getWeightEntity(weight))
+      const weightEntities = res.contents.map((weight) => WeightMapper.getWeightEntity(weight))
 
       return WeightMapper.sortWorkOutDate(weightEntities)
     } catch (error) {
