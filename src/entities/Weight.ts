@@ -29,16 +29,4 @@ export class WeightMapper {
       workOutDate: dayjs(weight.workOutDate).format('YYYY-MM-DD'),
     }
   }
-
-  /**
-   * Sort descending order for array
-   * @param weights 
-   */
-  static sortWorkOutDate = (
-    weights: Array<WeightEntity>
-  ): Array<WeightEntity> => {
-    weights.sort((a, b) => a.workOutDate < b.workOutDate ? 1 : -1)
-  
-    return weights
-  }
 }

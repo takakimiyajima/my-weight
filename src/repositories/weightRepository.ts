@@ -2,19 +2,22 @@ import { mCMSClient } from "@/libs/client";
 import { WeightEntity, WeightMapper } from '@/entities'
 
 export class WeightRepository {
-  /** TODO: fetch using userID */
+  /**
+   * Get weights belong user
+   * descending order by workOutDate
+   * @param userId
+   */
   static fetchWeights = async (userId: number): Promise<Array<WeightEntity>> => {
     try {
       const res = await mCMSClient.get({
         endpoint: "weight",
         queries: {
           filters: `userId[equals]${userId}`,
+          orders: `-workOutDate`
         },
       })
 
-      const weightEntities = res.contents.map((weight) => WeightMapper.getWeightEntity(weight))
-
-      return WeightMapper.sortWorkOutDate(weightEntities)
+      return res.contents.map((weight) => WeightMapper.getWeightEntity(weight))
     } catch (error) {
       console.error(error)
     }

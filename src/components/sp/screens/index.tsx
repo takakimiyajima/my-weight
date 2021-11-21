@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const Component = ({ className }: Props): JSX.Element => {
-  const { latestWeight, bmi, sbw } = useContext(WeightContext)
+  const { latestWeight, bmi, sbw, weeklyData } = useContext(WeightContext)
 
   return (
     <>
@@ -40,14 +40,12 @@ export const Component = ({ className }: Props): JSX.Element => {
         </div>
       </div>
 
-      {/* <Wrapper>
-        {weights.map((weight, index) => (
-          <div key={index}>
-            <p>{weight.weight}</p>
-            <p>{weight.workOutDate}</p>
-          </div>
-        ))}
-      </Wrapper> */}
+      {weeklyData.map((weight, index) => (
+        <div key={index}>
+          <p>{weight.weight}</p>
+          <p>{weight.workOutDate}</p>
+        </div>
+      ))}
 
       {/* <footer className="">
         <p>Powered by Takaki Miyajima</p>
