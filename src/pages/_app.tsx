@@ -1,3 +1,4 @@
+import { Provider } from 'next-auth/client'
 import Head from "next/head"
 import { AppProps } from "next/dist/shared/lib/router/router"
 import { ThemeProvider } from "styled-components"
@@ -16,11 +17,13 @@ function MyApp({ Component, pageProps, uaString }: Props) {
       <Head>
         <meta name="format-detection" content="telephone=no" />
       </Head>
-      <ThemeProvider theme={THEME}>
-        <UserAgentContextProvider uaString={uaString}>
-          <Component {...pageProps} />
-        </UserAgentContextProvider>
-      </ThemeProvider>
+      <Provider session={pageProps.session}>
+        <ThemeProvider theme={THEME}>
+          <UserAgentContextProvider uaString={uaString}>
+            <Component {...pageProps} />
+          </UserAgentContextProvider>
+        </ThemeProvider>
+      </Provider>
     </>
   )
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { signOut } from "next-auth/client"
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -25,7 +26,10 @@ const Logo = () => (
 const Component = ({ className }: Props): JSX.Element => (
   <header className={className}>
     <div className="header-top">
-      <Logo />
+      <div className="logo">
+        <Logo />
+      </div>
+      <button className="logout" onClick={() => signOut()}>Logout</button>
     </div>
   </header>
 )
@@ -41,9 +45,31 @@ export const StyledComponent = styled(Component)`
   z-index: 50;
 
   > .header-top {
+    display: flex;
+    justify-content: center;
     position: relative;
-    margin: -8px 0 -10px;
-    text-align: center;
+
+    > .logo {
+      margin: -8px 0 -10px;
+    }
+
+    > .logout {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 14px;
+      font-weight: bold;
+      color: ${(props) => props.theme.orange};
+      border-radius: 25px;
+      border: 1px solid ${(props) => props.theme.orange};
+      cursor: pointer;
+    }
   }
 `
 

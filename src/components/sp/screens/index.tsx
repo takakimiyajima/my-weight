@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { WeightContext } from '@/contexts/weight/weightContext'
 import styled from 'styled-components'
-// import { WeightEntity } from '@/entities'
 import { Header } from '@/components/sp/layouts/Header'
 
 // const Wrapper = styled.div`
