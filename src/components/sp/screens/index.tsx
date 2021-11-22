@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts'
 import { UserWeightContext } from '@/contexts/weight/weightContext'
 import styled from 'styled-components'
-import { Header } from '@/components/sp/layouts/Header'
+import { Header, Footer } from '@/components/sp/layouts'
 
 type Props = {
   className?: string
@@ -59,9 +59,7 @@ export const Component = ({ className }: Props): JSX.Element => {
         </div>
       </div>
 
-      {/* <footer className="">
-        <p>Powered by Takaki Miyajima</p>
-      </footer> */}
+      <Footer />
     </>
   )
 }
