@@ -1,4 +1,5 @@
 import React from 'react'
+import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import { signIn, useSession, getSession } from 'next-auth/client'
 import { SpScreen } from '@/components/sp/screens'
@@ -12,7 +13,7 @@ type Props = {
   weights: Array<WeightEntity>
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const session = await getSession(context)
     const userId = session.userId as number

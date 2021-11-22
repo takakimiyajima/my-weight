@@ -17,7 +17,7 @@ export const Component = ({ className }: Props): JSX.Element => {
 
       <div className={className}>
         <div className="weight-weekly-container">
-          <div className="title">Body weight</div>
+          <div className="title">Prev Body Weight</div>
           <div className="shape">Body shape</div>
           <div className="weight">{latestWeight()}<span className="kg">kg</span></div>
           <ResponsiveContainer className="chart" width="100%" height={250} >
