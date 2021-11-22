@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
+import { XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, Line } from 'recharts'
 import { UserWeightContext } from '@/contexts/weight/weightContext'
 import styled from 'styled-components'
 import { Header } from '@/components/sp/layouts/Header'
@@ -20,41 +20,27 @@ export const Component = ({ className }: Props): JSX.Element => {
           <div className="title">Body weight</div>
           <div className="shape">Body shape</div>
           <div className="weight">{latestWeight()}<span className="kg">kg</span></div>
-          <ResponsiveContainer className="chart" width="100%" height={250}>
-            <LineChart
-              cx={300}
-              width={700}
-              height={300}
+          <ResponsiveContainer className="chart" width="100%" height={250} >
+            <AreaChart
               data={weeklyWeights()}
               margin={{
                 top: 20,
-                right: 40,
-                left: -30,
+                right: 26,
+                left: -26,
                 bottom: 5,
               }}
             >
               <defs>
-                <linearGradient
-                  id="gradationColor"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="#fff" />
-                  <stop offset="100%" stopColor="#e44c4c" />
+                <linearGradient id="color" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stopColor="white" stopOpacity={0.8}></stop>
+                  <stop offset="75%" stopColor="#ff5655" stopOpacity={0.05}></stop>
                 </linearGradient>
               </defs>
+              <Area dataKey="weight" stroke="white" fill="url(#color)" />
               <XAxis dataKey="day" stroke="white" />
-              <YAxis stroke="white" type="number" />
-              <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="weight"
-                stroke="white"
-                activeDot={{ r: 8 }}
-              />
-            </LineChart>
+              <YAxis dataKey="weight" stroke="white" />
+              <Tooltip content={<CustomTooltip active="" payload="" />} />
+            </AreaChart>
           </ResponsiveContainer>
         </div>
         <div className="sub-parameters">
@@ -78,6 +64,19 @@ export const Component = ({ className }: Props): JSX.Element => {
       </footer> */}
     </>
   )
+}
+
+function CustomTooltip({ active, payload }) {
+  if (active) {
+    return (
+      <div className="tooltip">
+        <h4>{payload[0].date}</h4>
+        <p>{payload[0].weight}</p>
+      </div>
+    )
+  }
+
+  return null
 }
 
 // TODO: 基本的にここはレイアウト関連のみのスタイルを充てる
@@ -149,6 +148,15 @@ const StyledComponent = styled(Component)`
         }
       }
     }
+  }
+
+  .tooltip {
+    border-radius: 0.25rem;
+    background: #26313c;
+    color: ${(props) => props.theme.white};
+    padding: 1rem;
+    box-shadow: 15px 30px 48px 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
   }
 `
 
