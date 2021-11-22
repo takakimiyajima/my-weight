@@ -1,4 +1,4 @@
-import { Provider } from 'next-auth/client'
+import { Provider, signIn, useSession } from 'next-auth/client'
 import Head from "next/head"
 import { AppProps } from "next/dist/shared/lib/router/router"
 import { ThemeProvider } from "styled-components"
@@ -9,7 +9,21 @@ import { UserAgentContextProvider } from "@/contexts/userAgent/userAgentProvider
 
 type Props = {
   userAgent?: string;
-} & AppProps;
+} & AppProps
+
+export const NeedLogin = ({ children }) => {
+  const [session, loading] = useSession()
+  if (loading) {
+    return null
+  }
+
+  if (!session) {
+    signIn()
+    return null
+  }
+
+  return children
+}
 
 function MyApp({ Component, pageProps, uaString }: Props) {
   return  (
@@ -18,11 +32,13 @@ function MyApp({ Component, pageProps, uaString }: Props) {
         <meta name="format-detection" content="telephone=no" />
       </Head>
       <Provider session={pageProps.session}>
-        <ThemeProvider theme={THEME}>
-          <UserAgentContextProvider uaString={uaString}>
-            <Component {...pageProps} />
-          </UserAgentContextProvider>
-        </ThemeProvider>
+        <NeedLogin>
+          <ThemeProvider theme={THEME}>
+            <UserAgentContextProvider uaString={uaString}>
+              <Component {...pageProps} />
+            </UserAgentContextProvider>
+          </ThemeProvider>
+        </NeedLogin>
       </Provider>
     </>
   )
