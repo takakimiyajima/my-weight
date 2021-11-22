@@ -1,7 +1,7 @@
 import React from 'react'
 import { UserWeightContext, UserWeightContextType } from './weightContext'
 import { UserEntity, WeightEntity } from '@/entities'
-import { getTheLastOneWeek } from '@/utils'
+import { getFormattedDate, getSortTheLastOneWeek } from '@/utils'
 
 export interface ProviderProps {
   children?: React.ReactNode
@@ -22,18 +22,13 @@ export const UserWeightContextProvider = ({
   }
 
   const weeklyWeights = () => {
-    return getTheLastOneWeek().map((day) => {
+    return getSortTheLastOneWeek().map((day) => {
       const hasData = weights.find(({ workOutDate }) => workOutDate === day)
       
-      return hasData
-        ?  {
-          weight: hasData.weight,
-          day
-        }
-        : {
-          weight: null,
-          day
-        }
+      return {
+        weight: hasData ? hasData.weight : null,
+        day: getFormattedDate(day, 'MM/DD')
+      }
     })
   }
 

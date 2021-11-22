@@ -20,3 +20,7 @@ export const getTheLastOneWeek = (): Array<string> => {
       return dayjs().subtract(i, 'day').format(yyyyMMDD)
     })
 }
+
+export const getSortTheLastOneWeek = (): Array<string> => {
+  return getTheLastOneWeek().sort()
+}

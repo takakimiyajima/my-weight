@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { UserWeightContext } from '@/contexts/weight/weightContext'
 import styled from 'styled-components'
 import { Header } from '@/components/sp/layouts/Header'
@@ -9,7 +9,7 @@ type Props = {
 }
 
 export const Component = ({ className }: Props): JSX.Element => {
-  const { latestWeight, bmi, sbw } = useContext(UserWeightContext)
+  const { latestWeight, bmi, sbw, weeklyWeights } = useContext(UserWeightContext)
 
   return (
     <>
@@ -20,6 +20,42 @@ export const Component = ({ className }: Props): JSX.Element => {
           <div className="title">Body weight</div>
           <div className="shape">Body shape</div>
           <div className="weight">{latestWeight()}<span className="kg">kg</span></div>
+          <ResponsiveContainer className="chart" width="100%" height={250}>
+            <LineChart
+              cx={300}
+              width={700}
+              height={300}
+              data={weeklyWeights()}
+              margin={{
+                top: 20,
+                right: 40,
+                left: -30,
+                bottom: 5,
+              }}
+            >
+              <defs>
+                <linearGradient
+                  id="gradationColor"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#fff" />
+                  <stop offset="100%" stopColor="#e44c4c" />
+                </linearGradient>
+              </defs>
+              <XAxis dataKey="day" stroke="white" />
+              <YAxis stroke="white" type="number" />
+              <Tooltip />
+              <Line
+                type="monotone"
+                dataKey="weight"
+                stroke="white"
+                activeDot={{ r: 8 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
         <div className="sub-parameters">
           <div className="container">
@@ -53,7 +89,7 @@ const StyledComponent = styled(Component)`
     color: ${(props) => props.theme.white};
     background: ${(props) => props.theme.orange};
     width: 100%;
-    height: 300px;
+    height: 400px;
     border-radius: 10px;
 
     > .title {
@@ -71,6 +107,11 @@ const StyledComponent = styled(Component)`
         margin-left: 10px;
         font-size: 20px;
       }
+    }
+
+    > .chart {
+      font-size: 12px;
+      font-weight: bold;
     }
   }
 
