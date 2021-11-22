@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, Line } from 'recharts'
+import { XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts'
 import { UserWeightContext } from '@/contexts/weight/weightContext'
 import styled from 'styled-components'
 import { Header } from '@/components/sp/layouts/Header'
