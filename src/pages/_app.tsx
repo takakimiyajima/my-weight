@@ -25,7 +25,7 @@ export const NeedLogin = ({ children }) => {
   return children
 }
 
-function MyApp({ Component, pageProps, uaString }: Props) {
+function App({ Component, pageProps, uaString }: Props) {
   return  (
     <>
       <Head>
@@ -44,4 +44,4 @@ function MyApp({ Component, pageProps, uaString }: Props) {
   )
 }
 
-export default MyApp
+export default App
