@@ -12,8 +12,9 @@ const Component = ({ className }: Props) => (
 );
 
 const StyledComponent = styled(Component)`
+  margin-top: auto;
   padding: 20px;
-  text-align: right;
+  text-align: center;
   font-size: 12px;
   font-weight: 500;
   color: ${(props) => props.theme.white};
