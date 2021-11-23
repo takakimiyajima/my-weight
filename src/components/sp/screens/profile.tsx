@@ -50,6 +50,7 @@ export const Component = ({ className }: Props): JSX.Element => {
               name="gender"
               type="radio"
               value="male"
+              checked={"male" === user.gender}
               onChange={event => user.setGender(event.target.value)}
             />
             <label htmlFor="male">Male</label>
@@ -59,6 +60,7 @@ export const Component = ({ className }: Props): JSX.Element => {
               name="gender"
               type="radio"
               value="female"
+              checked={"female" === user.gender}
               onChange={event => user.setGender(event.target.value)}
             />
             <label htmlFor="female">Female</label>

@@ -11,7 +11,7 @@ export type User = {
   lastName: string
   firstName: string
   dateOfBirth: string
-  gender: string
+  gender: Array<string>
   height: number
 }
 
@@ -37,7 +37,7 @@ export class UserMapper {
       firstName: user.firstName,
       lastName: user.lastName,
       fullName: `${user.firstName} ${user.lastName}`,
-      gender: user.gender,
+      gender: user.gender[0],
       dateOfBirth: getFormattedDate(user.dateOfBirth),
       age: getAge(user.dateOfBirth),
       height: user.height
