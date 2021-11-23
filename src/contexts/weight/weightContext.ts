@@ -1,5 +1,4 @@
 import { createContext } from 'react'
-// import { WeightEntity } from '@/entities'
 
 export interface UserWeightContextType {
   weeklyWeights: () => Array<{

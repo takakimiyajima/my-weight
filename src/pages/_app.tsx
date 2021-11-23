@@ -6,6 +6,7 @@ import { THEME } from "@/constants"
 import "@/styles/destyle.css"
 import "@/styles/globals.css"
 import { UserAgentContextProvider } from "@/contexts/userAgent/userAgentProvider"
+// import { UserRepository } from '@/repositories'
 
 type Props = {
   userAgent?: string;
@@ -24,6 +25,15 @@ export const NeedLogin = ({ children }) => {
 
   return children
 }
+
+// export const NeedToCreateUser = async ({ children }) => {
+//   const [session] = useSession()
+//   const userId = session.userId as number
+//   /** API */
+//   const user = await UserRepository.fetchUser(userId)
+
+//   return children
+// }
 
 function App({ Component, pageProps, uaString }: Props) {
   return  (

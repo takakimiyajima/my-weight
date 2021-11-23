@@ -16,11 +16,16 @@ export const getFormattedDate = (input: string, format: string = yyyyMMDD): stri
 export const getTheLastOneWeek = (): Array<string> => {
   return Array(7)
     .fill(null)
-    .map((_, i) => {
-      return dayjs().subtract(i, 'day').format(yyyyMMDD)
-    })
+    .map((_, i) => dayjs().subtract(i, 'day').format(yyyyMMDD))
 }
 
 export const getSortTheLastOneWeek = (): Array<string> => {
   return getTheLastOneWeek().sort()
+}
+
+export const getAge = (dateOfBirth: string): number => {
+  const today = dayjs()
+  const birthDate = dayjs(dateOfBirth)
+
+  return today.diff(birthDate, 'year')
 }

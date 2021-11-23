@@ -1,4 +1,5 @@
 export const THEME = {
+  darkGrey: '#52595F',
   white: '#fff',
   green: '#2fb09d',
   orange: '#fa6f45',
