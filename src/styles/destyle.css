@@ -16,9 +16,9 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  * 3. Remove gray overlay on links for iOS.
  */
- html {
-  padding: 0; /*　追加*/
-  margin: 0; /*　追加*/
+html {
+  padding: 0;
+  margin: 0;
   line-height: 1.6; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
   -webkit-tap-highlight-color: transparent; /* 3*/
