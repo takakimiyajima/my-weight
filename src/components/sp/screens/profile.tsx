@@ -91,7 +91,7 @@ export const Component = ({ className }: Props): JSX.Element => {
 
         <button
           className="register"
-          onClick={async() => { await user.postUser() }}
+          onClick={async() => {}}
         >
           Register
         </button>
