@@ -1,6 +1,6 @@
 // import { mCMSClient } from "@/libs/client"
 import axios from "@/libs/axios"
-import { PATH, ENDPOINTS } from '@/constants'
+import { ENDPOINTS } from '@/constants'
 import {
   // mCMSResponse,
   // Weight,
@@ -33,7 +33,7 @@ export class WeightRepository {
   static fetchWeights = async (userId: string): Promise<Array<WeightEntity>> => {
     try {
       const res = await axios.get(
-        `${PATH}${ENDPOINTS.weight}`,
+        `${ENDPOINTS.weight}`,
         { params: { filters: `userId[equals]${userId}` }}
       )
 

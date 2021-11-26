@@ -21,7 +21,7 @@ export const UserContextProvider = ({
 
   // const user = useContext(UserContext)
   const postUser = async () => {
-    // await UserRepository.postUser()
+    await UserRepository.postUser()
   }
 
   const newContext: UserContextType = {

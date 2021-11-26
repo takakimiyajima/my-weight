@@ -1,12 +1,12 @@
 // import { mCMSClient } from "@/libs/client";
 import axios from "@/libs/axios"
 import {
-  mCMSResponse,
-  User,
+  // mCMSResponse,
+  // User,
   UserEntity,
   UserMapper
 } from '@/entities'
-import { PATH, ENDPOINTS } from '@/constants'
+import { PATH ,ENDPOINTS } from '@/constants'
 
 
 export class UserRepository {
@@ -34,7 +34,7 @@ export class UserRepository {
   static fetchUser = async (userId: number): Promise<UserEntity | null> => {
     try {
       const res = await axios.get(
-        `${PATH}${ENDPOINTS.user}`,
+        `${ENDPOINTS.user}`,
         { 
           params: {
             filters: `userId[equals]${userId}`,
@@ -46,6 +46,26 @@ export class UserRepository {
       return res.data.totalCount > 0
         ? UserMapper.getUserEntity(res.data.contents[0])
         : null
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  static postUser = async (): Promise<null> => {
+    try {
+      return await axios.post(
+        `${PATH}${ENDPOINTS.user}`,
+        {
+          "userId": "test22",
+          "firstName": "複数行のテキストを入力\n複数行のテキストを入力",
+          "lastName": "複数行のテキストを入力\n複数行のテキストを入力",
+          "dateOfBirth": "2021-11-26T07:33:14.534Z",
+          "gender": [
+            "選択肢"
+          ],
+          "height": 123
+        }
+      )
     } catch (error) {
       console.error(error)
     }
