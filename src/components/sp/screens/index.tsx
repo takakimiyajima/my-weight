@@ -158,17 +158,6 @@ const StyledComponent = styled(Component)`
   }
 `
 
-// ${(props) => {
-//   switch (props.pageType) {
-//     case "top":
-//       return `padding-top: 62px;`;
-//     case "app_article":
-//       return `padding-top: 0px;`;
-//     case "other":
-//       return `padding-top: 44px;`;
-//   }
-// }}
-
 export const SpScreen = (props: Props): JSX.Element => {
   return <StyledComponent {...props} />;
 };

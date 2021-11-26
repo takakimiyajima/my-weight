@@ -88,6 +88,13 @@ export const Component = ({ className }: Props): JSX.Element => {
             onChange={event => user.setHeight(event.target.value)}
           />
         </div>
+
+        <button
+          className="register"
+          onClick={async() => { await user.postUser() }}
+        >
+          Register
+        </button>
       </div>
 
       <Footer />
@@ -99,6 +106,7 @@ const StyledComponent = styled(Component)`
   padding: 74px 20px 40px;
   
   > .input-container {
+    position: relative;
     margin-top: 14px;
     font-size: 16px;
     font-weight: 600;
@@ -121,9 +129,41 @@ const StyledComponent = styled(Component)`
     }
   }
 
+  > .register {
+    display: inline-block;
+    position: relative;
+    margin-top: 40px;
+    width: 100%;
+    height: 56px;
+    text-align: center;
+    font-weight: bold;
+    color: ${(props) => props.theme.white};
+    background: ${(props) => props.theme.green};
+    border: 1px solid ${(props) => props.theme.green};
+    border-radius: 20px;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
+
+    &:hover {
+      opacity: 0.6;
+      transition: opacity 0.4s ease-out;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -4px;
+      bottom: -4px;
+      left: -4px;
+      right: -4px;
+      border: solid 1px ${(props) => props.theme.green};
+      border-radius: 22px;
+      z-index: -1;
+    }
+  }
 `
 
 export const SpProfileScreen = (props: Props): JSX.Element => {
   return <StyledComponent {...props} />;
-};
-
+}

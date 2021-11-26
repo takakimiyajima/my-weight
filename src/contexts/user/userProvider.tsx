@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 import { UserContext, UserContextType } from './userContext'
 import { UserEntity } from '@/entities'
+import { UserRepository } from '@/repositories'
 
 export interface ProviderProps {
   children?: ReactNode
@@ -18,6 +19,11 @@ export const UserContextProvider = ({
   const [dateOfBirth, setDateOfBirth] = useState<string>(user.dateOfBirth)
   const [height, setHeight] = useState<string | number | null>(user.height)
 
+  // const user = useContext(UserContext)
+  const postUser = async () => {
+    await UserRepository.postUser()
+  }
+
   const newContext: UserContextType = {
     isNewUser,
     firstName,
@@ -30,6 +36,7 @@ export const UserContextProvider = ({
     setDateOfBirth,
     height,
     setHeight,
+    postUser,
   }
 
   return (
