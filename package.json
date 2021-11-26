@@ -20,7 +20,6 @@
   "dependencies": {
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",
-    "microcms-js-sdk": "^2.0.0",
     "next": "11.1.2",
     "next-auth": "^3.29.0",
     "next-useragent": "^2.8.0",

@@ -3,9 +3,7 @@ import styled from 'styled-components'
 import { UserContext } from '@/contexts/user/userContext'
 import { Header, Footer } from '@/components/sp/layouts'
 
-export type ContainerProps = {
-
-}
+export type ContainerProps = {}
 
 type Props = {
   className?: string
@@ -27,7 +25,7 @@ export const Component = ({ className }: Props): JSX.Element => {
             className="basic"
             type="text"
             value={user.firstName}
-            onChange={event => user.setFirstName(event.target.value)}
+            onChange={(event) => user.setFirstName(event.target.value)}
           />
         </div>
         {/** Last Name */}
@@ -38,7 +36,7 @@ export const Component = ({ className }: Props): JSX.Element => {
             className="basic"
             type="text"
             value={user.lastName}
-            onChange={event => user.setLastName(event.target.value)}
+            onChange={(event) => user.setLastName(event.target.value)}
           />
         </div>
         {/** Gender */}
@@ -50,8 +48,8 @@ export const Component = ({ className }: Props): JSX.Element => {
               name="gender"
               type="radio"
               value="male"
-              checked={"male" === user.gender}
-              onChange={event => user.setGender(event.target.value)}
+              checked={'male' === user.gender}
+              onChange={(event) => user.setGender(event.target.value)}
             />
             <label htmlFor="male">Male</label>
             <input
@@ -60,8 +58,8 @@ export const Component = ({ className }: Props): JSX.Element => {
               name="gender"
               type="radio"
               value="female"
-              checked={"female" === user.gender}
-              onChange={event => user.setGender(event.target.value)}
+              checked={'female' === user.gender}
+              onChange={(event) => user.setGender(event.target.value)}
             />
             <label htmlFor="female">Female</label>
           </div>
@@ -74,7 +72,7 @@ export const Component = ({ className }: Props): JSX.Element => {
             className="basic"
             type="text"
             value={user.dateOfBirth}
-            onChange={event => user.setDateOfBirth(event.target.value)}
+            onChange={(event) => user.setDateOfBirth(event.target.value)}
           />
         </div>
         {/** Height */}
@@ -85,13 +83,15 @@ export const Component = ({ className }: Props): JSX.Element => {
             className="basic"
             type="text"
             value={user.height}
-            onChange={event => user.setHeight(event.target.value)}
+            onChange={(event) => user.setHeight(event.target.value)}
           />
         </div>
 
         <button
           className="register"
-          onClick={async() => { await user.postUser() }}
+          onClick={async () => {
+            await user.createUser()
+          }}
         >
           Register
         </button>
@@ -104,7 +104,7 @@ export const Component = ({ className }: Props): JSX.Element => {
 
 const StyledComponent = styled(Component)`
   padding: 74px 20px 40px;
-  
+
   > .input-container {
     position: relative;
     margin-top: 14px;
@@ -151,7 +151,7 @@ const StyledComponent = styled(Component)`
     }
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: -4px;
       bottom: -4px;
@@ -165,5 +165,5 @@ const StyledComponent = styled(Component)`
 `
 
 export const SpProfileScreen = (props: Props): JSX.Element => {
-  return <StyledComponent {...props} />;
+  return <StyledComponent {...props} />
 }

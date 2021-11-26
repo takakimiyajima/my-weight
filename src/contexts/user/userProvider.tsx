@@ -8,10 +8,7 @@ export interface ProviderProps {
   user: UserEntity | null
 }
 
-export const UserContextProvider = ({
-  children,
-  user,
-}: ProviderProps) => {
+export const UserContextProvider = ({ children, user }: ProviderProps) => {
   const isNewUser = !user
   const [firstName, setFirstName] = useState<string>(user.firstName)
   const [lastName, setLastName] = useState<string>(user.lastName)
@@ -20,8 +17,8 @@ export const UserContextProvider = ({
   const [height, setHeight] = useState<string | number | null>(user.height)
 
   // const user = useContext(UserContext)
-  const postUser = async () => {
-    await UserRepository.postUser()
+  const createUser = async () => {
+    await UserRepository.createUser()
   }
 
   const newContext: UserContextType = {
@@ -36,12 +33,10 @@ export const UserContextProvider = ({
     setDateOfBirth,
     height,
     setHeight,
-    postUser,
+    createUser,
   }
 
   return (
-    <UserContext.Provider value={newContext}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={newContext}>{children}</UserContext.Provider>
   )
 }
