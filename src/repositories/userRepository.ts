@@ -35,7 +35,7 @@ export class UserRepository {
         userId: '777',
         firstName: '複数行のテキストを入力\n複数行のテキストを入力',
         lastName: '複数行のテキストを入力\n複数行のテキストを入力',
-        dateOfBirth: '2021-11-26T07:33:14.534Z',
+        dateOfBirth: '2021-11-26',
         gender: ['male'],
         height: 123,
       })

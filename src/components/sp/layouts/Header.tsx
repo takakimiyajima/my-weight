@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState, Dispatch, SetStateAction } from 'react'
 import { signOut } from "next-auth/client"
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
 
+export type ContainerProps = {
+  isMenuOpen: boolean
+  setIsMenuOpen: Dispatch<SetStateAction<boolean>>
+}
+
 type Props = {
   className?: string
-}
+} & ContainerProps
 
 /** Logo for SP */
 const Logo = () => (
@@ -23,13 +28,28 @@ const Logo = () => (
   </Link>
 )
 
-const Component = ({ className }: Props): JSX.Element => (
+const Component = ({
+  className,
+  isMenuOpen,
+  setIsMenuOpen
+}: Props ): JSX.Element => (
   <header className={className}>
     <div className="header-top">
       <div className="logo">
         <Logo />
       </div>
-      <button className="logout" onClick={() => signOut()}>Logout</button>
+      {/* <button className="logout" onClick={() => signOut()}>Logout</button> */}
+      <button
+        className={`
+          menu
+          ${isMenuOpen ? "active" : ""}`
+        }
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
+        <span>&nbsp;</span>
+        <span>&nbsp;</span>
+        <span>&nbsp;</span>
+      </button>
     </div>
   </header>
 )
@@ -70,11 +90,62 @@ export const StyledComponent = styled(Component)`
       border: 1px solid ${(props) => props.theme.orange};
       cursor: pointer;
     }
+
+    > .menu {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-44%);
+      display: block;
+      width: 26px;
+      height: 20px;
+      box-sizing: border-box;
+      transition: all 0.4s;
+      span {
+        background: #857754;
+        border-radius: 1px;
+        box-sizing: border-box;
+        display: inline-block;
+        height: 2px;
+        left: 0;
+        position: absolute;
+        transition: all 0.4s;
+        width: 100%;
+        &:nth-of-type(1) {
+          top: 0;
+        }
+        &:nth-of-type(2) {
+          top: 9px;
+        }
+        &:nth-of-type(3) {
+          bottom: 0;
+        }
+      }
+      &.active {
+        span {
+          &:nth-of-type(1) {
+            transform: translateY(9px) rotate(-45deg);
+          }
+          &:nth-of-type(2) {
+            opacity: 0;
+          }
+          &:nth-of-type(3) {
+            transform: translateY(-9px) rotate(45deg);
+          }
+        }
+      }
+    }
   }
 `
 
 export const Header = (): JSX.Element => {
+  /** Show drawer menu or not */
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   return (
-    <StyledComponent />
+    <StyledComponent
+      isMenuOpen={isMenuOpen}
+      setIsMenuOpen={setIsMenuOpen}
+    />
   )
 }

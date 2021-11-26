@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { UserContext } from '@/contexts/user/userContext'
 import { Header, Footer } from '@/components/sp/layouts'
 
-export type ContainerProps = {}
+export type ContainerProps = {
+}
 
 type Props = {
   className?: string
