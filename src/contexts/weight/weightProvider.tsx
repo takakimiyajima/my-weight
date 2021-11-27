@@ -17,8 +17,8 @@ export const UserWeightContextProvider = ({
     return weights ? weights[0]?.weight || null : null
   }
 
-  const getMeterHeight = (): number => {
-    return parseInt(user.height, 10) / 100
+  const getMeterHeight = (): number | null => {
+    return !!user ? (parseInt(user?.height, 10) / 100) : null
   }
 
   const weeklyWeights = () => {
@@ -34,7 +34,7 @@ export const UserWeightContextProvider = ({
 
   /** BMI:　体重(kg) ÷ {身長(m) Ｘ 身長(m)} */
   const bmi = () => {
-    if (!latestWeight()) {
+    if (!latestWeight() || !getMeterHeight()) {
       return null
     }
 
@@ -43,7 +43,9 @@ export const UserWeightContextProvider = ({
 
   /** SBW(standard body weight): 標準体重 */
   const sbw = () => {
-    return (22 * (getMeterHeight() ** 2)).toFixed(1)
+    return getMeterHeight()
+      ? (22 * (getMeterHeight() ** 2)).toFixed(1)
+      : null
   }
 
   const newContext: UserWeightContextType = {
