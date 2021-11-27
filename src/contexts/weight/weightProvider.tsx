@@ -14,7 +14,7 @@ export const UserWeightContextProvider = ({
   weights,
 }: ProviderProps) => {
   const latestWeight = () => {
-    return weights[0]?.weight || null
+    return weights ? weights[0]?.weight || null : null
   }
 
   const getMeterHeight = (): number => {
