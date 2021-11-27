@@ -65,11 +65,11 @@ export const Component = ({ className }: Props): JSX.Element => {
 }
 
 function CustomTooltip({ active, payload }) {
-  if (active) {
+  if (active && payload && payload.length) {
     return (
       <div className="tooltip">
-        <h4>{payload[0].date}</h4>
-        <p>{payload[0].weight}</p>
+        <h4>{payload[0].payload.day}</h4>
+        <p>{payload[0].payload.weight}kg</p>
       </div>
     )
   }
