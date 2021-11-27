@@ -1,12 +1,11 @@
 import { Provider, signIn, useSession } from 'next-auth/client'
-import Head from "next/head"
-import { AppProps } from "next/dist/shared/lib/router/router"
-import { ThemeProvider } from "styled-components"
-import { THEME } from "@/constants"
-import "@/styles/destyle.css"
-import "@/styles/globals.css"
-import { UserAgentContextProvider } from "@/contexts/userAgent/userAgentProvider"
-// import { UserRepository } from '@/repositories'
+import Head from 'next/head'
+import { AppProps } from 'next/dist/shared/lib/router/router'
+import { ThemeProvider } from 'styled-components'
+import { THEME } from '@/constants'
+import '@/styles/destyle.css'
+import '@/styles/globals.css'
+import { UserAgentContextProvider } from '@/contexts/userAgent/userAgentProvider'
 
 type Props = {
   userAgent?: string;

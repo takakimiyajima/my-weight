@@ -38,7 +38,7 @@ const Component = ({
       <div className="logo">
         <Logo />
       </div>
-      {/* <button className="logout" onClick={() => signOut()}>Logout</button> */}
+      {/** Hamburger Menu */}
       <button
         className={`
           menu
@@ -67,7 +67,6 @@ const Component = ({
 )
 
 export const StyledComponent = styled(Component)`
-  background: ${(props) => props.theme.white};
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
   position: fixed;

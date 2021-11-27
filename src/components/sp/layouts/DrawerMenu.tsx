@@ -34,11 +34,12 @@ const Component = ({ className, visible }: Props) => (
 
 const StyledComponent = styled(Component)`
   dl {
+    font-weight: bold;
+
     dt {
-      font-size: 14px;
+      font-size: 16px;
       border-bottom: 1px solid ${(props) => props.theme.green};
       color: ${(props) => props.theme.green};
-      font-weight: bold;
       height: 72px;
       line-height: 72px;
       overflow: hidden;
@@ -48,12 +49,11 @@ const StyledComponent = styled(Component)`
     }
 
     dd {
-      height: 45px;
-      line-height: 45px;
-      padding: 0 34px;
+      font-size: 14px;
+      line-height: 60px;
 
       .menuLink {
-        font-size: 14px;
+        border-bottom: 1px solid ${(props) => props.theme.mediumGray};
         background-size: 14px 13px;
         color: ${(props) => props.theme.green};
         display: flex;
