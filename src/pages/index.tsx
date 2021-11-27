@@ -9,13 +9,13 @@ import { UserRepository, WeightRepository } from '@/repositories'
 import { UserWeightContextProvider } from '@/contexts/weight/weightProvider'
 
 type Props = {
-  isNewUser?: boolean
+  existUser?: boolean
   user?: UserEntity
   weights?: Array<WeightEntity>
   error?: {
-    statusCode: number;
-    message: string;
-  };
+    statusCode: number
+    message: string
+  }
 }
 
 export const unauthorizedError = {
@@ -47,7 +47,7 @@ export const internalServerError = {
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext
-): Promise<{props: Props}> {
+): Promise<{ props: Props }> {
   try {
     const session = await getSession(context)
     if (!session) {
@@ -58,8 +58,8 @@ export async function getServerSideProps(
     /** API */
     const user = await UserRepository.fetchUser(userId)
     if (!user) {
-      return { 
-        props: { isNewUser: true }
+      return {
+        props: { existUser: true },
       }
     }
 
@@ -81,7 +81,7 @@ export default function Home(props: Props) {
   const router = useRouter()
   const userDevice = useUserAgent()
   // There's no user data
-  if (props?.isNewUser || !props.user || !props.weights) {
+  if (props?.existUser || !props.user || !props.weights) {
     router.push('/profile')
   }
 

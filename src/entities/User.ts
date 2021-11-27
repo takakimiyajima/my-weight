@@ -8,11 +8,11 @@ export type User = {
   publishedAt: string
   revisedAt: string
   userId: string
-  lastName: string
-  firstName: string
-  dateOfBirth: string
-  gender: Array<string>
-  height: number
+  lastName?: string
+  firstName?: string
+  dateOfBirth?: string
+  gender?: Array<string>
+  height?: number
 }
 
 /** entity type */
@@ -23,8 +23,8 @@ export type UserEntity = {
   fullName: string
   gender: string
   dateOfBirth: string
-  age: number
-  height: number
+  age: number | null
+  height: string
 }
 
 /** Mapping weight entity */
@@ -34,13 +34,13 @@ export class UserMapper {
   ): UserEntity => {
     return {
       id: user.userId,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      fullName: `${user.firstName} ${user.lastName}`,
-      gender: user.gender[0],
-      dateOfBirth: getFormattedDate(user.dateOfBirth),
-      age: getAge(user.dateOfBirth),
-      height: user.height
+      firstName: user?.firstName ?? '',
+      lastName: user?.lastName ?? '',
+      fullName: `${user?.firstName} ${user?.lastName}`,
+      gender: user?.gender[0] ?? 'male',
+      dateOfBirth: getFormattedDate(user?.dateOfBirth) ?? '',
+      age: getAge(user?.dateOfBirth) ?? null,
+      height: String(user?.height) ?? ''
     }
   }
 }

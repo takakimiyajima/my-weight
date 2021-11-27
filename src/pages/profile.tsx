@@ -8,12 +8,12 @@ import { UserEntity } from '@/entities'
 import { UserRepository } from '@/repositories'
 
 type Props = {
-  isNewUser?: boolean
+  existUser?: boolean
   user?: UserEntity | null
   error?: {
-    statusCode: number;
-    message: string;
-  };
+    statusCode: number
+    message: string
+  }
 }
 
 export const unauthorizedError = {
@@ -45,7 +45,7 @@ export const internalServerError = {
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext
-): Promise<{props: Props}> {
+): Promise<{ props: Props }> {
   try {
     const session = await getSession(context)
     if (!session) {
@@ -55,14 +55,11 @@ export async function getServerSideProps(
     const userId = session.userId as number
     /** API */
     const user = await UserRepository.fetchUser(userId)
-    if (!user) {
-      return { 
-        props: { user: null }
-      }
-    }
 
     return {
-      props: { user }
+      props: {
+        user
+      },
     }
   } catch (error) {
     console.error(error)

@@ -1,10 +1,20 @@
 import axios from '@/libs/axios'
+// import { AxiosResponse } from 'axios'
 import {
   // User,
   UserEntity,
   UserMapper,
 } from '@/entities'
 import { PATH, ENDPOINTS } from '@/constants'
+
+type CreateUser = {
+  userId: string
+  firstName: string
+  lastName: string
+  gender: string
+  dateOfBirth: string
+  height: string
+}
 
 export class UserRepository {
   /**
@@ -29,15 +39,20 @@ export class UserRepository {
     }
   }
 
-  static createUser = async (): Promise<null> => {
+  /**
+   * Create user
+   * @param user: CreateUser
+   */
+  static createUser = async (user: CreateUser): Promise<null> => {
+    const height = parseInt(user.height, 10)
     try {
       return await axios.post(`${PATH}${ENDPOINTS.user}`, {
-        userId: '777',
-        firstName: '複数行のテキストを入力\n複数行のテキストを入力',
-        lastName: '複数行のテキストを入力\n複数行のテキストを入力',
-        dateOfBirth: '2021-11-26',
-        gender: ['male'],
-        height: 123,
+        userId: user.userId,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        dateOfBirth: user.dateOfBirth,
+        gender: [user.gender],
+        height,
       })
     } catch (error) {
       console.error(error)

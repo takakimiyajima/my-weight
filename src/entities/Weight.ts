@@ -23,8 +23,8 @@ export class WeightMapper {
     weight: Weight
   ): WeightEntity => {
     return {
-      weight: weight.weight,
-      workOutDate: getFormattedDate(weight.workOutDate),
+      weight: weight.weight || null,
+      workOutDate: getFormattedDate(weight.workOutDate) || ''
     }
   }
 }

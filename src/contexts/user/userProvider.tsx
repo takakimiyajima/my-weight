@@ -9,20 +9,28 @@ export interface ProviderProps {
 }
 
 export const UserContextProvider = ({ children, user }: ProviderProps) => {
-  const isNewUser = !user
-  const [firstName, setFirstName] = useState<string>(user.firstName)
-  const [lastName, setLastName] = useState<string>(user.lastName)
-  const [gender, setGender] = useState<string>(user.gender)
-  const [dateOfBirth, setDateOfBirth] = useState<string>(user.dateOfBirth)
-  const [height, setHeight] = useState<string | number | null>(user.height)
+  const existUser = !!user
+  console.log("user")
+  console.log(user)
+  const [firstName, setFirstName] = useState<string>(user?.firstName ?? '')
+  const [lastName, setLastName] = useState<string>(user?.lastName ?? '')
+  const [gender, setGender] = useState<string>(user?.gender[0] ?? 'male')
+  const [dateOfBirth, setDateOfBirth] = useState<string>(user?.dateOfBirth ?? '')
+  const [height, setHeight] = useState<string | null>(user?.height ?? '')
 
-  // const user = useContext(UserContext)
-  const createUser = async () => {
-    await UserRepository.createUser()
+  const createUser = async (userId: string) => {
+    await UserRepository.createUser({
+      userId,
+      firstName,
+      lastName,
+      gender,
+      dateOfBirth,
+      height
+    })
   }
 
   const newContext: UserContextType = {
-    isNewUser,
+    existUser,
     firstName,
     setFirstName,
     lastName,

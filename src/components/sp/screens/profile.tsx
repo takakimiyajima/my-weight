@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { useSession } from 'next-auth/client'
 import { UserContext } from '@/contexts/user/userContext'
 import { Header, Footer } from '@/components/sp/layouts'
 
@@ -12,6 +13,8 @@ type Props = {
 
 export const Component = ({ className }: Props): JSX.Element => {
   const user = useContext(UserContext)
+  const [session] = useSession()
+  const userId = String(session.userId)
 
   return (
     <>
@@ -25,7 +28,7 @@ export const Component = ({ className }: Props): JSX.Element => {
             id="firstName"
             className="basic"
             type="text"
-            value={user.firstName}
+            value={user.firstName ?? ''}
             onChange={(event) => user.setFirstName(event.target.value)}
           />
         </div>
@@ -91,7 +94,7 @@ export const Component = ({ className }: Props): JSX.Element => {
         <button
           className="register"
           onClick={async () => {
-            await user.createUser()
+            await user.createUser(userId)
           }}
         >
           Register
