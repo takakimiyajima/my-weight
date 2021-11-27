@@ -3,6 +3,7 @@ import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/client'
 import { SpScreen } from '@/components/sp/screens'
+import { Loading } from '@/components/common/Loading'
 import { useUserAgent } from '@/contexts/userAgent/useUserAgent'
 import { UserEntity, WeightEntity } from '@/entities'
 import { UserRepository, WeightRepository } from '@/repositories'
@@ -82,9 +83,10 @@ export default function Home(props: Props) {
   const userDevice = useUserAgent()
   // There's no user data
   if (props?.existUser || !props.user) {
+    // TODO: Wanna fix
     router.push('/profile')
 
-    return <p>loading....</p>
+    return <Loading />
   }
 
   return (
