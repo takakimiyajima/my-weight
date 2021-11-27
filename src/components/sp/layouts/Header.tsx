@@ -17,15 +17,14 @@ type Props = {
 /** Logo for SP */
 const Logo = () => (
   <Link href='/' passHref>
-    {/** NOTE: https://github.com/vercel/next.js/issues/7915 */}
-    <>
+    <a>
       <Image
         src="/sp/logo.png"
         alt="logoSP"
         width="140"
         height="70"
       />
-    </>
+    </a>
   </Link>
 )
 
