@@ -16,7 +16,6 @@ const StyledComponent = styled(Component)`
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
-  -webkit- transform: translateY(-50%) translateX(-50%);
   margin: auto;
   font-size: 20px;
   color: ${(props) => props.theme.green};

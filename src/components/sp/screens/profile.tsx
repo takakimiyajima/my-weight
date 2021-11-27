@@ -55,7 +55,7 @@ export const Component = ({ className }: Props): JSX.Element => {
               checked={'male' === user.gender}
               onChange={(event) => user.setGender(event.target.value)}
             />
-            <label htmlFor="male">Male</label>
+            <label className="radio-label" htmlFor="male">Male</label>
             <input
               id="female"
               className="female"
@@ -65,7 +65,7 @@ export const Component = ({ className }: Props): JSX.Element => {
               checked={'female' === user.gender}
               onChange={(event) => user.setGender(event.target.value)}
             />
-            <label htmlFor="female">Female</label>
+            <label className="radio-label" htmlFor="female">Female</label>
           </div>
         </div>
         {/** Date Of Birth */}
@@ -74,14 +74,14 @@ export const Component = ({ className }: Props): JSX.Element => {
           <input
             id="dateOfBirth"
             className="basic"
-            type="text"
+            type="date"
             value={user.dateOfBirth}
             onChange={(event) => user.setDateOfBirth(event.target.value)}
           />
         </div>
         {/** Height */}
         <div className="input-container">
-          <label htmlFor="height">Height</label>
+          <label htmlFor="height">Height (cm)</label>
           <input
             id="height"
             className="basic"
@@ -126,9 +126,47 @@ const StyledComponent = styled(Component)`
       border-radius: 10px;
       border: 1px solid ${(props) => props.theme.darkGrey};
 
-      // TODO: Radio個別のスタイルを充てる
-      > .female {
-        margin-left: 20px;
+      // radio button - related
+      > .radio-label {
+        position: relative;
+        padding-left: 34px;
+      }
+
+      > .radio-label:after,
+        .radio-label:before {
+        position: absolute;
+        content: '';
+        display: block;
+        top: 50%;
+      }
+
+      > .radio-label:after {
+        left: 24%;
+        transform: translateY(-50%) translateX(-50%);
+        width: 16px;
+        height: 16px;
+        border: 2px solid ${(props) => props.theme.gray};
+        border-radius: 50%;
+        opacity: 1;
+        transition: opacity 0.4s ease-out;
+      }
+
+      > .radio-label:before {
+        left: 18%;
+        margin-top: -5px;
+        width: 10px;
+        height: 10px;
+        background: ${(props) => props.theme.green};
+        border-radius: 50%;
+        opacity: 0;
+      }
+
+      input[type=radio]:checked + .radio-label:before {
+        opacity: 1;
+      }
+      .radio-label:hover:after {
+        opacity: 0.6;
+        transition: opacity 0.4s ease-out;
       }
     }
   }

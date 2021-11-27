@@ -118,6 +118,7 @@ ol {
 [type="radio"] {
   -webkit-appearance: radio;
   appearance: radio;
+  display: none;
 }
 
 /**

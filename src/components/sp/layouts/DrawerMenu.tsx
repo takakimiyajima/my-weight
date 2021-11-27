@@ -17,14 +17,16 @@ const Component = ({ className, visible }: Props) => (
       <dl>
         <dt>Menu</dt>
         <dd>
-          <Link href='/' passHref>
+          <Link href="/" passHref>
             <a className="menuLink">Top</a>
           </Link>
-          <Link href='/profile' passHref>
+          <Link href="/profile" passHref>
             <a className="menuLink">Profile</a>
           </Link>
-          <Link href='#' passHref>
-            <p className="menuLink" onClick={() => signOut()}>Logout</p>
+          <Link href="#" passHref>
+            <p className="menuLink" onClick={() => signOut()}>
+              Logout
+            </p>
           </Link>
         </dd>
       </dl>
@@ -53,7 +55,7 @@ const StyledComponent = styled(Component)`
       line-height: 60px;
 
       .menuLink {
-        border-bottom: 1px solid ${(props) => props.theme.mediumGray};
+        border-bottom: 1px solid ${(props) => props.theme.lightGray};
         background-size: 14px 13px;
         color: ${(props) => props.theme.green};
         display: flex;
