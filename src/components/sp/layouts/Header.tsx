@@ -1,10 +1,11 @@
 import React, { useState, Dispatch, SetStateAction } from 'react'
-import { signOut } from "next-auth/client"
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
+import { CSSTransition } from 'react-transition-group'
+import { DrawerMenu } from '@/components/sp/layouts'
 
-export type ContainerProps = {
+type ContainerProps = {
   isMenuOpen: boolean
   setIsMenuOpen: Dispatch<SetStateAction<boolean>>
 }
@@ -51,6 +52,18 @@ const Component = ({
         <span>&nbsp;</span>
       </button>
     </div>
+    <CSSTransition
+      in={isMenuOpen}
+      timeout={300}
+      classNames="header-content"
+    >
+      <div
+        className="header-content"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        <DrawerMenu visible={isMenuOpen} />
+      </div>
+    </CSSTransition>
   </header>
 )
 
@@ -61,13 +74,13 @@ export const StyledComponent = styled(Component)`
   position: fixed;
   top: 0;
   left: 0;
+  transition: transform 0.275s ease-in-out;
   width: 100%;
   z-index: 50;
 
   > .header-top {
-    display: flex;
-    justify-content: center;
     position: relative;
+    text-align: center;
 
     > .logo {
       margin: -8px 0 -10px;
@@ -135,6 +148,39 @@ export const StyledComponent = styled(Component)`
         }
       }
     }
+  }
+
+  > .header-content {
+    background: rgba(0, 0, 0, 0.4);
+    height: 100vh;
+    display: none;
+    position: relative;
+    width: 100%;
+  }
+  > .header-content-enter {
+    opacity: 0;
+    display: block;
+  }
+  > .header-content-enter-active {
+    opacity: 1;
+    display: block;
+    transition: opacity 275ms, transform 275ms, height 275ms;
+  }
+  > .header-content-exit {
+    opacity: 1;
+    display: block;
+  }
+  > .header-content-exit-active {
+    opacity: 0;
+    display: block;
+    transition: opacity 275ms, transform 275ms, height 275ms;
+  }
+
+  > .header-content-exit-done {
+    display: none;
+  }
+  > .header-content-enter-done {
+    display: block;
   }
 `
 
