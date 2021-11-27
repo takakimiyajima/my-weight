@@ -17,6 +17,9 @@ const Component = ({ className, visible }: Props) => (
       <dl>
         <dt>Menu</dt>
         <dd>
+          <Link href='/' passHref>
+            <a className="menuLink">Top</a>
+          </Link>
           <Link href='/profile' passHref>
             <a className="menuLink">Profile</a>
           </Link>
@@ -45,10 +48,10 @@ const StyledComponent = styled(Component)`
     }
 
     dd {
-      border-bottom: 1px solid ${(props) => props.theme.gray};
       height: 45px;
       line-height: 45px;
       padding: 0 34px;
+
       .menuLink {
         font-size: 14px;
         background-size: 14px 13px;
