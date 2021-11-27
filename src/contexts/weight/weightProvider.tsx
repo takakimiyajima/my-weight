@@ -23,10 +23,10 @@ export const UserWeightContextProvider = ({
 
   const weeklyWeights = () => {
     return getSortTheLastOneWeek().map((day) => {
-      const hasData = weights?.find(({ workOutDate }) => workOutDate === day)
+      const hasDate = weights?.find(({ workOutDate }) => workOutDate === day)
       
       return {
-        weight: hasData ? hasData.weight : null,
+        weight: hasDate ? hasDate.weight : null,
         day: getFormattedDate(day, 'MM/DD')
       }
     })
