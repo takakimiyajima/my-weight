@@ -65,7 +65,7 @@ export const Component = ({ className }: Props): JSX.Element => {
               checked={'female' === user.gender}
               onChange={(event) => user.setGender(event.target.value)}
             />
-            <label className="radio-label" htmlFor="female">Female</label>
+            <label className="radio-label female" htmlFor="female">Female</label>
           </div>
         </div>
         {/** Date Of Birth */}
@@ -129,7 +129,7 @@ const StyledComponent = styled(Component)`
       // radio button - related
       > .radio-label {
         position: relative;
-        padding-left: 34px;
+        padding:0 20px 0 30px;
       }
 
       > .radio-label:after,
@@ -141,7 +141,7 @@ const StyledComponent = styled(Component)`
       }
 
       > .radio-label:after {
-        left: 24%;
+        left: 12px;
         transform: translateY(-50%) translateX(-50%);
         width: 16px;
         height: 16px;
@@ -152,7 +152,7 @@ const StyledComponent = styled(Component)`
       }
 
       > .radio-label:before {
-        left: 18%;
+        left: 7px;
         margin-top: -5px;
         width: 10px;
         height: 10px;
