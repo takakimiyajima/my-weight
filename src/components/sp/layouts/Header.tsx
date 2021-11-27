@@ -42,8 +42,8 @@ const Component = ({
       <button
         className={`
           menu
-          ${isMenuOpen ? "active" : ""}`
-        }
+          ${isMenuOpen && "active"}
+        `}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <span>&nbsp;</span>

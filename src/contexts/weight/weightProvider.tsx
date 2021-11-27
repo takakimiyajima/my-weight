@@ -14,11 +14,11 @@ export const UserWeightContextProvider = ({
   weights,
 }: ProviderProps) => {
   const latestWeight = () => {
-    return weights[0].weight || null
+    return weights[0]?.weight || null
   }
 
   const getMeterHeight = (): number => {
-    return user.height / 100
+    return parseInt(user.height, 10) / 100
   }
 
   const weeklyWeights = () => {
