@@ -81,7 +81,7 @@ export default function Home(props: Props) {
   const router = useRouter()
   const userDevice = useUserAgent()
   // There's no user data
-  if (props?.existUser || !props.user || !props.weights) {
+  if (props?.existUser || !props.user) {
     router.push('/profile')
   }
 
