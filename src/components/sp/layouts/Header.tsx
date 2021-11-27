@@ -79,6 +79,7 @@ export const StyledComponent = styled(Component)`
   > .header-top {
     position: relative;
     text-align: center;
+    background: ${(props) => props.theme.white};
 
     > .logo {
       margin: -8px 0 -10px;
