@@ -69,8 +69,8 @@ export async function getServerSideProps(
     return {
       props: {
         user,
-        weights,
-      },
+        weights
+      }
     }
   } catch (error) {
     console.error(error)
