@@ -57,7 +57,9 @@ export class UserRepository {
         height,
       })
     } catch (error) {
+      console.error('error')
       console.error(error)
+      throw error
     }
   }
 }

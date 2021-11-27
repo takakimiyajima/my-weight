@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from 'react'
+import { useRouter } from 'next/router'
 import { UserContext, UserContextType } from './userContext'
 import { UserEntity } from '@/entities'
 import { UserRepository } from '@/repositories'
@@ -18,6 +19,8 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
   const [dateOfBirth, setDateOfBirth] = useState<string>(user?.dateOfBirth ?? '')
   const [height, setHeight] = useState<string | null>(user?.height ?? '')
 
+  const router = useRouter()
+
   const createUser = async (userId: string) => {
     await UserRepository.createUser({
       userId,
@@ -27,6 +30,9 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
       dateOfBirth,
       height
     })
+
+    /** redirect TOP page */
+    router.push('/')
   }
 
   const newContext: UserContextType = {
