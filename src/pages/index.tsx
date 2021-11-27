@@ -77,12 +77,12 @@ export async function getServerSideProps(
   }
 }
 
-export default function Home(props: Props) {
+export default async function Home(props: Props) {
   const router = useRouter()
   const userDevice = useUserAgent()
   // There's no user data
   if (props?.existUser || !props.user) {
-    router.push('/profile')
+    await router.push('/profile')
   }
 
   return (
