@@ -34,6 +34,12 @@ export const Component = ({ className }: Props): JSX.Element => {
       <Header />
 
       <div className={className}>
+        {!user.existUser &&
+          <div className="description">
+            <p>Welcome to MY WEIGHT CHECKER</p>
+            <p>Register your info</p>
+          </div>
+        }
         {/** First Name */}
         <div className="input-container">
           <label htmlFor="firstName">First Name</label>
@@ -134,6 +140,14 @@ export const Component = ({ className }: Props): JSX.Element => {
 
 const StyledComponent = styled(Component)`
   padding: 74px 20px 40px;
+
+  > .description {
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+    color: ${(props) => props.theme.green};
+    margin-bottom: 30px;
+  }
 
   > .input-container {
     position: relative;
