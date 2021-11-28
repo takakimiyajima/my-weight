@@ -1,9 +1,9 @@
 import React, { useState ,useContext } from 'react'
 import styled from 'styled-components'
+// import { useForm } from 'react-hook-form'
 import { useSession } from 'next-auth/client'
 import { UserContext } from '@/contexts/user/userContext'
 import { Header, Footer } from '@/components/sp/layouts'
-import { Console } from 'console'
 
 export type ContainerProps = {
 }
@@ -21,11 +21,9 @@ export const Component = ({ className }: Props): JSX.Element => {
   const registerUser = async() => {
     setIsLoading(true)
     if (user.existUser) {
-      console.log('update-----')
       await user.updateUser(userId)
     }
     else {
-      console.log('create-----')
       await user.createUser(userId)
     }
     
