@@ -2,6 +2,7 @@ import { getAge, getFormattedDate } from '@/utils'
 
 /** api type */
 export type User = {
+  contentId: string
   id: string
   createdAt: string
   updatedAt: string
@@ -17,6 +18,7 @@ export type User = {
 
 /** entity type */
 export type UserEntity = {
+  contentId: string
   id: string
   firstName: string
   lastName: string
@@ -33,6 +35,7 @@ export class UserMapper {
     user: User
   ): UserEntity => {
     return {
+      contentId: user.id,
       id: user.userId,
       firstName: user?.firstName ?? '',
       lastName: user?.lastName ?? '',

@@ -13,6 +13,7 @@ export interface UserContextType {
   setDateOfBirth: Dispatch<SetStateAction<string>>
   setHeight: Dispatch<SetStateAction<number | string>>
   createUser: (userId: string) => Promise<void>
+  updateUser: (userId: string) => Promise<void>
 }
 
 export const UserContext = createContext<UserContextType>({
@@ -28,4 +29,5 @@ export const UserContext = createContext<UserContextType>({
   setDateOfBirth: () => {},
   setHeight: () => {},
   createUser: async () => {},
+  updateUser: async () => {}
 })

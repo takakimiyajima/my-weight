@@ -13,6 +13,7 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
   const existUser = !!user
   console.log("user")
   console.log(user)
+  const contentId = user?.contentId ?? null
   const [firstName, setFirstName] = useState<string>(user?.firstName ?? '')
   const [lastName, setLastName] = useState<string>(user?.lastName ?? '')
   const [gender, setGender] = useState<string>(user?.gender[0] ?? 'male')
@@ -23,6 +24,21 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
 
   const createUser = async (userId: string) => {
     await UserRepository.createUser({
+      userId,
+      firstName,
+      lastName,
+      gender,
+      dateOfBirth,
+      height
+    })
+
+    /** redirect TOP page */
+    router.push('/')
+  }
+
+  const updateUser = async (userId: string) => {
+    await UserRepository.putUser({
+      contentId,
       userId,
       firstName,
       lastName,
@@ -48,6 +64,7 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
     height,
     setHeight,
     createUser,
+    updateUser
   }
 
   return (
