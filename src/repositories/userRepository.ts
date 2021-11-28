@@ -16,9 +16,9 @@ type BaseUser = {
   height: string
 }
 
-type PutUser = {
+type updateUser = {
   contentId: string
-} & BaseUser 
+} & BaseUser
 
 export class UserRepository {
   /**
@@ -50,14 +50,17 @@ export class UserRepository {
   static createUser = async (user: BaseUser): Promise<null> => {
     const height = parseInt(user.height, 10)
     try {
-      return await axios.post(`${PATH}${ENDPOINTS.user}`, {
-        userId: user.userId,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        dateOfBirth: user.dateOfBirth,
-        gender: [user.gender],
-        height,
-      })
+      return await axios.post(
+        `${PATH}${ENDPOINTS.user}`,
+        {
+          userId: user.userId,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          dateOfBirth: user.dateOfBirth,
+          gender: [user.gender],
+          height,
+        }
+      )
     } catch (error) {
       console.error(error)
       throw error
@@ -65,10 +68,10 @@ export class UserRepository {
   }
 
   /**
-   * Create user
-   * @param user: CreateUser
+   * Update user
+   * @param user
    */
-   static putUser = async (user: PutUser): Promise<null> => {
+   static updateUser = async (user: updateUser): Promise<null> => {
     const height = parseInt(user.height, 10)
     try {
       return await axios.patch(`${PATH}${ENDPOINTS.user}/${user.contentId}`, {
