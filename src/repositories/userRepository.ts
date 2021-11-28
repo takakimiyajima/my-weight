@@ -48,8 +48,6 @@ export class UserRepository {
    * @param user: CreateUser
    */
   static createUser = async (user: BaseUser): Promise<null> => {
-    console.log('userId')
-    console.log(user.userId)
     const height = parseInt(user.height, 10)
     try {
       return await axios.post(`${PATH}${ENDPOINTS.user}`, {
@@ -61,7 +59,6 @@ export class UserRepository {
         height,
       })
     } catch (error) {
-      console.error('error')
       console.error(error)
       throw error
     }
@@ -83,7 +80,6 @@ export class UserRepository {
         height,
       })
     } catch (error) {
-      console.error('error')
       console.error(error)
       throw error
     }
