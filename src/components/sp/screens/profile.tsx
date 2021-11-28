@@ -1,6 +1,5 @@
 import React, { useState ,useContext } from 'react'
 import styled from 'styled-components'
-// import { useForm } from 'react-hook-form'
 import { useSession } from 'next-auth/client'
 import { UserContext } from '@/contexts/user/userContext'
 import { Header, Footer } from '@/components/sp/layouts'
@@ -58,14 +57,18 @@ export const Component = ({ className }: Props): JSX.Element => {
           />
         </div>
         {/** Gender */}
-        <div className="input-container">
+        <div className={"input-container"}>
           <p>Gender</p>
-          <div className="basic">
+          <div className={`
+            basic
+            ${user.existUser && "disabled"}
+          `}>
             <input
               id="male"
               name="gender"
               type="radio"
               value="male"
+              disabled={user.existUser}
               checked={'male' === user.gender}
               onChange={(event) => user.setGender(event.target.value)}
             />
@@ -76,6 +79,7 @@ export const Component = ({ className }: Props): JSX.Element => {
               name="gender"
               type="radio"
               value="female"
+              disabled={user.existUser}
               checked={'female' === user.gender}
               onChange={(event) => user.setGender(event.target.value)}
             />
@@ -87,9 +91,13 @@ export const Component = ({ className }: Props): JSX.Element => {
           <label htmlFor="dateOfBirth">Date Of Birth</label>
           <input
             id="dateOfBirth"
-            className="basic"
+            className={`
+              basic
+              ${user.existUser && "disabled"}
+            `}
             type="date"
             value={user.dateOfBirth}
+            disabled={user.existUser}
             onChange={(event) => user.setDateOfBirth(event.target.value)}
           />
         </div>
@@ -143,6 +151,10 @@ const StyledComponent = styled(Component)`
       width: 100%;
       border-radius: 10px;
       border: 1px solid ${(props) => props.theme.darkGrey};
+
+      &.disabled {
+        background: ${(props) => props.theme.lightGrey};
+      }
 
       // radio button - related
       > .radio-label {
