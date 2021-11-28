@@ -28,7 +28,7 @@ export class UserRepository {
    */
   static fetchUser = async (userId: number): Promise<UserEntity | null> => {
     try {
-      const res = await axios.get(`${ENDPOINTS.user}`, {
+      const res = await axios.get(`${PATH}${ENDPOINTS.user}`, {
         params: {
           filters: `userId[equals]${userId}`,
           limit: 1,
