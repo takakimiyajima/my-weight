@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState ,useContext } from 'react'
 import styled from 'styled-components'
 import { useSession } from 'next-auth/client'
 import { UserContext } from '@/contexts/user/userContext'
@@ -12,9 +12,16 @@ type Props = {
 }
 
 export const Component = ({ className }: Props): JSX.Element => {
+  const [isLoading, setIsLoading] = useState(false)
   const user = useContext(UserContext)
   const [session] = useSession()
   const userId = String(session.userId)
+
+  const registerUser = async() => {
+    setIsLoading(true)
+    await user.createUser(userId)
+    setIsLoading(false)
+  }
 
   return (
     <>
@@ -92,9 +99,13 @@ export const Component = ({ className }: Props): JSX.Element => {
         </div>
 
         <button
-          className="register"
+          className={`
+            register
+            ${isLoading && "--disabled"}
+          `}
+          disabled={isLoading}
           onClick={async () => {
-            await user.createUser(userId)
+            await registerUser()
           }}
         >
           Register
@@ -186,6 +197,10 @@ const StyledComponent = styled(Component)`
     cursor: pointer;
     opacity: 1;
     transition: opacity 0.4s ease-out;
+
+    &--disabled {
+      opacity: 0.4;
+    }
 
     &:hover {
       opacity: 0.6;
