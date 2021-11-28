@@ -33,7 +33,7 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
     })
 
     /** redirect TOP page */
-    router.push('/')
+    await router.push('/')
   }
 
   const updateUser = async (userId: string) => {
