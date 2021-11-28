@@ -15,7 +15,9 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
   const [firstName, setFirstName] = useState<string>(user?.firstName ?? '')
   const [lastName, setLastName] = useState<string>(user?.lastName ?? '')
   const [gender, setGender] = useState<string>(user?.gender ?? 'male')
-  const [dateOfBirth, setDateOfBirth] = useState<string>(user?.dateOfBirth ?? '')
+  const [dateOfBirth, setDateOfBirth] = useState<string>(
+    user?.dateOfBirth ?? ''
+  )
   const [height, setHeight] = useState<string | null>(user?.height ?? '')
 
   const router = useRouter()
@@ -27,7 +29,7 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
       lastName,
       gender,
       dateOfBirth,
-      height
+      height,
     })
 
     /** redirect TOP page */
@@ -35,14 +37,14 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
   }
 
   const updateUser = async (userId: string) => {
-    await UserRepository.putUser({
+    await UserRepository.updateUser({
       contentId,
       userId,
       firstName,
       lastName,
       gender,
       dateOfBirth,
-      height
+      height,
     })
 
     /** redirect TOP page */
@@ -62,7 +64,7 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
     height,
     setHeight,
     createUser,
-    updateUser
+    updateUser,
   }
 
   return (

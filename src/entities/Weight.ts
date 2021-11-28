@@ -2,18 +2,19 @@ import { getFormattedDate } from '@/utils'
 
 /** api type */
 export type Weight = {
-  id: string,
-  createdAt: string,
-  updatedAt: string,
-  publishedAt: string,
-  revisedAt: string,
-  weight: number,
+  id: string
+  createdAt: string
+  updatedAt: string
+  publishedAt: string
+  revisedAt: string
+  weight: number
   workOutDate: string
 }
 
 /** entity type */
 export type WeightEntity = {
-  weight: number,
+  contentId: string
+  weight: number
   workOutDate: string
 }
 
@@ -23,6 +24,7 @@ export class WeightMapper {
     weight: Weight
   ): WeightEntity => {
     return {
+      contentId: weight.id,
       weight: weight.weight || null,
       workOutDate: getFormattedDate(weight.workOutDate) || ''
     }
