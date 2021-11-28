@@ -1,5 +1,5 @@
 import axios from "@/libs/axios"
-import { ENDPOINTS } from '@/constants'
+import { PATH, ENDPOINTS } from '@/constants'
 import {
   // Weight,
   WeightEntity,
@@ -15,7 +15,7 @@ export class WeightRepository {
   static fetchWeights = async (userId: string): Promise<Array<WeightEntity>> => {
     try {
       const res = await axios.get(
-        `${ENDPOINTS.weight}`,
+        `${PATH}${ENDPOINTS.weight}`,
         { params: { filters: `userId[equals]${userId}` }}
       )
 

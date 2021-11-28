@@ -13,9 +13,7 @@ export const UserWeightContextProvider = ({
   user,
   weights,
 }: ProviderProps) => {
-  const latestWeight = () => {
-    return weights ? weights[0]?.weight || null : null
-  }
+  const latestWeight = () => weights[0]?.weight || null
 
   const getMeterHeight = (): number | null => {
     return !!user ? (parseInt(user?.height, 10) / 100) : null
