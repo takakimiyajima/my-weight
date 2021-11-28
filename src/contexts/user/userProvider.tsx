@@ -16,7 +16,7 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
   const contentId = user?.contentId ?? null
   const [firstName, setFirstName] = useState<string>(user?.firstName ?? '')
   const [lastName, setLastName] = useState<string>(user?.lastName ?? '')
-  const [gender, setGender] = useState<string>(user?.gender[0] ?? 'male')
+  const [gender, setGender] = useState<string>(user?.gender ?? 'male')
   const [dateOfBirth, setDateOfBirth] = useState<string>(user?.dateOfBirth ?? '')
   const [height, setHeight] = useState<string | null>(user?.height ?? '')
 
