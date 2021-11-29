@@ -9,13 +9,56 @@ type Props = {
 }
 
 export const Component = ({ className }: Props): JSX.Element => {
-  const { latestWeight, bmi, sbw, weeklyWeights } = useContext(UserWeightContext)
+  const {
+    workOutDate,
+    setWorkOutDate,
+    weight,
+    setWeight,
+    registerWeight,
+    latestWeight,
+    bmi,
+    sbw,
+    weeklyWeights
+  } = useContext(UserWeightContext)
 
   return (
     <>
       <Header />
 
       <div className={className}>
+        <div className="weight-input-container">
+          <div className="weight-input-inner">
+            <label htmlFor="workOutDate">Work Out Date</label>
+            <input
+              id="workOutDate"
+              className="weight-input"
+              type="date"
+              value={workOutDate}
+              placeholder="01/01/2021"
+              onChange={(event) => setWorkOutDate(event.target.value)}
+            />
+          </div>
+          <div className="weight-input-inner">
+            <label htmlFor="weight">Weight</label>
+            <input
+              id="weight"
+              className="weight-input"
+              type="number"
+              value={weight}
+              onChange={(event) => setWeight(event.target.value)}
+            />
+          </div>
+          <button
+            className={`
+              register
+              ${(!workOutDate || !weight) && "--disabled"}
+            `}
+            disabled={!workOutDate || !weight}
+            onClick={async () => await registerWeight()}
+          >
+            Register
+          </button>
+        </div>
         <div className="weight-weekly-container">
           <div className="title">Prev Body Weight</div>
           <div className="shape">Body shape</div>
@@ -88,10 +131,76 @@ function CustomTooltip({ active, payload }) {
 // TODO: 基本的にここはレイアウト関連のみのスタイルを充てる
 const StyledComponent = styled(Component)`
   padding: 74px 20px 40px;
+  color: ${(props) => props.theme.white};
+
+  > .weight-input-container {
+    position: relative;
+    padding: 12px;
+    background: ${(props) => props.theme.green};
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+
+    > .weight-input-inner {
+      margin-top: 14px;
+      
+      &:first-child {
+        margin-top: 0;
+      }
+
+      > .weight-input {
+        padding-left: 4px;
+        color: ${(props) => props.theme.black};
+        position: absolute;
+        right: 12px;
+        background: ${(props) => props.theme.white};
+        border-radius: 10px;
+        width: 40%;
+      }
+    }
+
+    > .register {
+      display: inline-block;
+      position: relative;
+      margin-top: 20px;
+      width: 100%;
+      height: 50px;
+      text-align: center;
+      font-weight: bold;
+      color: ${(props) => props.theme.white};
+      background: ${(props) => props.theme.green};
+      border: 2px solid ${(props) => props.theme.white};
+      border-radius: 20px;
+      cursor: pointer;
+      opacity: 1;
+      transition: opacity 0.4s ease-out;
+  
+      &--disabled {
+        opacity: 0.4;
+      }
+  
+      &:hover {
+        opacity: 0.6;
+        transition: opacity 0.4s ease-out;
+      }
+  
+      &::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        bottom: -4px;
+        left: -4px;
+        right: -4px;
+        border: solid 1px ${(props) => props.theme.green};
+        border-radius: 22px;
+        z-index: -1;
+      }
+    }
+  }
 
   > .weight-weekly-container {
+    margin-top: 20px;
     padding: 12px;
-    color: ${(props) => props.theme.white};
     background: ${(props) => props.theme.orange};
     width: 100%;
     height: 400px;

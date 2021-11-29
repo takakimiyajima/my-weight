@@ -1,6 +1,12 @@
-import { createContext } from 'react'
+import { createContext, Dispatch, SetStateAction } from 'react'
+
 
 export interface UserWeightContextType {
+  workOutDate: string,
+  setWorkOutDate: Dispatch<SetStateAction<string>>,
+  weight: number | string,
+  setWeight: Dispatch<SetStateAction<number | string>>,
+  registerWeight: () => Promise<void>,
   weeklyWeights: () => Array<{
     weight: number | null,
     day: string
@@ -11,6 +17,11 @@ export interface UserWeightContextType {
 }
 
 export const UserWeightContext = createContext<UserWeightContextType>({
+  workOutDate: '',
+  setWorkOutDate: () => {},
+  weight: null,
+  setWeight: () => {},
+  registerWeight: async () => {},
   weeklyWeights: () => [],
   latestWeight: () => null,
   bmi: () => null,

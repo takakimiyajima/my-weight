@@ -9,9 +9,12 @@
 /** e.g. 2020-01-01 */
 const yyyyMMDD = 'YYYY-MM-DD'
 
-export const getFormattedDate = (input: string, format: string = yyyyMMDD): string => {
-  return dayjs(input).format(format)
-}
+export const today = (): string => dayjs().format(yyyyMMDD)
+
+export const getFormattedDate = (
+  input: string,
+  format: string = yyyyMMDD
+): string => dayjs(input).format(format)
 
 export const getTheLastOneWeek = (): Array<string> => {
   return Array(7)
@@ -19,9 +22,9 @@ export const getTheLastOneWeek = (): Array<string> => {
     .map((_, i) => dayjs().subtract(i, 'day').format(yyyyMMDD))
 }
 
-export const getSortTheLastOneWeek = (): Array<string> => {
-  return getTheLastOneWeek().sort()
-}
+export const getSortTheLastOneWeek = (): Array<string> =>
+  getTheLastOneWeek().sort()
+
 
 export const getAge = (dateOfBirth: string): number => {
   const today = dayjs()

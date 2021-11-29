@@ -25,15 +25,6 @@ export const NeedLogin = ({ children }) => {
   return children
 }
 
-// export const NeedToCreateUser = async ({ children }) => {
-//   const [session] = useSession()
-//   const userId = session.userId as number
-//   /** API */
-//   const user = await UserRepository.fetchUser(userId)
-
-//   return children
-// }
-
 function App({ Component, pageProps, uaString }: Props) {
   return  (
     <>
