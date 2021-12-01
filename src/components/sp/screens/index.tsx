@@ -15,11 +15,17 @@ export const Component = ({ className }: Props): JSX.Element => {
     weight,
     setWeight,
     registerWeight,
+    fetchWeights,
     latestWeight,
     bmi,
     sbw,
     weeklyWeights
   } = useContext(UserWeightContext)
+
+  const updateWeights = async (): Promise<void> => {
+    await registerWeight()
+    await fetchWeights()
+  }
 
   return (
     <>
@@ -54,7 +60,7 @@ export const Component = ({ className }: Props): JSX.Element => {
               ${(!workOutDate || !weight) && "--disabled"}
             `}
             disabled={!workOutDate || !weight}
-            onClick={async () => await registerWeight()}
+            onClick={async () => await updateWeights()}
           >
             Register
           </button>

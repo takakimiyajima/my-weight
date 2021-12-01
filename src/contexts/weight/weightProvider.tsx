@@ -8,24 +8,25 @@ import { today, currentlyHour } from '@/utils'
 export interface ProviderProps {
   children?: React.ReactNode
   user: UserEntity
-  weights: Array<WeightEntity>
+  originalWeights: Array<WeightEntity>
 }
 export const UserWeightContextProvider = ({
   children,
   user,
-  weights,
+  originalWeights,
 }: ProviderProps) => {
   /**************************************
    * Register-related
    **************************************/
   const [workOutDate, setWorkOutDate] = useState<string>(today().format('YYYY-MM-DD'))
   const [weight, setWeight] = useState<number | string>('')
+  const [weights, setWeights] = useState<Array<WeightEntity>>(originalWeights)
 
   /** Weight that has already registered on workOutDate the user chose */
   const registeredWeight = (): WeightEntity | null =>
     weights.find((weight) => weight.workOutDate === workOutDate) ?? null
 
-  const registerWeight = async (): Promise<null> => {
+  const registerWeight = async (): Promise<void> => {
     /** Patch weight, when user have already registered workOutDate */
     if (registeredWeight()) {
       await WeightRepository.patchWeight({
@@ -44,6 +45,11 @@ export const UserWeightContextProvider = ({
       weight: Number(weight),
       workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
     })
+  }
+
+  const fetchWeights = async (): Promise<void> => {
+    const newWeights = await WeightRepository.fetchWeights(user.id) ?? []
+    setWeights(newWeights)
   }
 
   /**************************************
@@ -88,6 +94,7 @@ export const UserWeightContextProvider = ({
     weight,
     setWeight,
     registerWeight,
+    fetchWeights,
     weeklyWeights,
     latestWeight,
     bmi,

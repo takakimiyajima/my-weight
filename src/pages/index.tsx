@@ -91,7 +91,7 @@ export default function Home(props: Props) {
 
   return (
     <>
-      <UserWeightContextProvider user={props.user} weights={props.weights}>
+      <UserWeightContextProvider user={props.user} originalWeights={props.weights}>
         {userDevice.isMobile ? (
           <SpScreen />
         ) : (
