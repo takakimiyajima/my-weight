@@ -13,44 +13,40 @@ const Component = ({ className }: Props) => (
 
 const StyledComponent = styled(Component)`
   position: relative;
+  // background: ${(props) => props.theme.gray};
 
-  .loader,
-  .loader:before,
-  .loader:after {
+  > .loader,
+  > .loader:before,
+  > .loader:after {
     border-radius: 50%;
     width: 2.5em;
     height: 2.5em;
-    -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
-    -webkit-animation: load7 1.8s infinite ease-in-out;
     animation: load7 1.8s infinite ease-in-out;
   }
-  .loader {
+  > .loader {
     color: ${(props) => props.theme.green};
     font-size: 10px;
     margin: 240px auto;
     position: relative;
     text-indent: -9999em;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
     transform: translateZ(0);
-    -webkit-animation-delay: -0.16s;
     animation-delay: -0.16s;
   }
-  .loader:before,
-  .loader:after {
+  > .loader:before,
+  > .loader:after {
     content: '';
     position: absolute;
     top: 0;
   }
-  .loader:before {
+  > .loader:before {
     left: -3.5em;
-    -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
   }
-  .loader:after {
+  > .loader:after {
     left: 3.5em;
   }
+
   @-webkit-keyframes load7 {
     0%,
     80%,

@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useState ,useContext } from 'react'
+import styled from 'styled-components'
 import { XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts'
 import { UserWeightContext } from '@/contexts/weight/weightContext'
-import styled from 'styled-components'
 import { Header, Footer } from '@/components/sp/layouts'
+import { Loading } from '@/components/common/Loading'
 
 type Props = {
   className?: string
@@ -22,9 +23,17 @@ export const Component = ({ className }: Props): JSX.Element => {
     weeklyWeights
   } = useContext(UserWeightContext)
 
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   const updateWeights = async (): Promise<void> => {
+    setIsLoading(true)
     await registerWeight()
     await fetchWeights()
+    setIsLoading(false)
+  }
+
+  if (isLoading) {
+    return <Loading />
   }
 
   return (
