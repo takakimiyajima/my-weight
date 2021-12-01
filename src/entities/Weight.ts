@@ -8,6 +8,7 @@ export type Weight = {
   publishedAt: string
   revisedAt: string
   weight: number
+  /** NOTE: e.g. 2000-01-01T00:00:00.000Z */
   workOutDate: string
 }
 

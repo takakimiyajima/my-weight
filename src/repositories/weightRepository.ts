@@ -26,10 +26,14 @@ export class WeightRepository {
     try {
       const res = await axios.get(
         `${PATH}${ENDPOINTS.weight}`,
-        { params: { filters: `userId[equals]${userId}` }}
+        { params:
+          {
+            filters: `userId[equals]${userId}`,
+            orders: '-workOutDate'
+          }
+        }
       )
 
-      console.log('res')
       console.log(res.data.contents)
       // TODO: add type
       return res.data.contents.map((weight) => WeightMapper.getWeightEntity(weight))
@@ -43,6 +47,8 @@ export class WeightRepository {
    * @param weight
    */
    static createWeight = async (weight: BaseWeight): Promise<null> => {
+    console.log("post----------------------")
+    console.log(weight.workOutDate)
     try {
       return await axios.post(
         `${PATH}${ENDPOINTS.weight}`,

@@ -3,7 +3,7 @@ import { UserWeightContext, UserWeightContextType } from './weightContext'
 import { UserEntity, WeightEntity } from '@/entities'
 import { WeightRepository } from '@/repositories'
 import { getFormattedDate, getSortTheLastOneWeek } from '@/utils'
-import { today } from '@/utils'
+import { today, currentlyHour } from '@/utils'
 
 export interface ProviderProps {
   children?: React.ReactNode
@@ -18,13 +18,12 @@ export const UserWeightContextProvider = ({
   /**************************************
    * Register-related
    **************************************/
-  const [workOutDate, setWorkOutDate] = useState<string>(today())
+  const [workOutDate, setWorkOutDate] = useState<string>(today().format('YYYY-MM-DD'))
   const [weight, setWeight] = useState<number | string>('')
 
   /** Weight that has already registered on workOutDate the user chose */
-  const registeredWeight = (): WeightEntity | null => {
-    return weights.find((weight) => weight.workOutDate === workOutDate) ?? null
-  }
+  const registeredWeight = (): WeightEntity | null =>
+    weights.find((weight) => weight.workOutDate === workOutDate) ?? null
 
   const registerWeight = async (): Promise<null> => {
     /** Patch weight, when user have already registered workOutDate */
@@ -33,7 +32,7 @@ export const UserWeightContextProvider = ({
         contentId: registeredWeight().contentId,
         userId: user.id,
         weight: Number(weight),
-        workOutDate,
+        workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
       })
 
       return
@@ -43,7 +42,7 @@ export const UserWeightContextProvider = ({
     await WeightRepository.createWeight({
       userId: user.id,
       weight: Number(weight),
-      workOutDate,
+      workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
     })
   }
 
