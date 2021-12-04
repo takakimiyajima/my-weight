@@ -2,6 +2,7 @@ import React from 'react'
 import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/client'
+import { PcScreen } from '@/components/pc/screens'
 import { SpScreen } from '@/components/sp/screens'
 import { Loading } from '@/components/common/Loading'
 import { useUserAgent } from '@/contexts/userAgent/useUserAgent'
@@ -95,8 +96,7 @@ export default function Home(props: Props) {
         {userDevice.isMobile ? (
           <SpScreen />
         ) : (
-          <p>Under Construction for PC</p>
-          // <PcScreen />
+          <PcScreen />
         )}
       </UserWeightContextProvider>
     </>

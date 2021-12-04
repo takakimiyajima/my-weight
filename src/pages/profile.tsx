@@ -1,6 +1,7 @@
 import React from 'react'
 import { GetServerSidePropsContext } from 'next'
 import { getSession } from 'next-auth/client'
+import { PcScreen } from '@/components/pc/screens'
 import { SpProfileScreen } from '@/components/sp/screens/profile'
 import { useUserAgent } from '@/contexts/userAgent/useUserAgent'
 import { UserContextProvider } from '@/contexts/user/userProvider'
@@ -75,8 +76,7 @@ export default function Home(props: Props) {
         {userDevice.isMobile ? (
           <SpProfileScreen />
         ) : (
-          <p>Under Construction for PC</p>
-          // <PcScreen />
+          <PcScreen />
         )}
       </UserContextProvider>
     </>
