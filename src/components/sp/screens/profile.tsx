@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useSession } from 'next-auth/client'
 import { UserContext } from '@/contexts/user/userContext'
 import { Header, Footer } from '@/components/sp/layouts'
+import { BaseInput } from '@/components/sp/atoms'
 
 export type ContainerProps = {
 }
@@ -43,23 +44,19 @@ export const Component = ({ className }: Props): JSX.Element => {
         {/** First Name */}
         <div className="input-container">
           <label htmlFor="firstName">First Name</label>
-          <input
+          <BaseInput
             id="firstName"
-            className="basic"
-            type="text"
-            value={user.firstName ?? ''}
-            onChange={(event) => user.setFirstName(event.target.value)}
+            value={user.firstName}
+            onChange={user.setFirstName}
           />
         </div>
         {/** Last Name */}
         <div className="input-container">
           <label htmlFor="lastName">Last Name</label>
-          <input
+          <BaseInput
             id="lastName"
-            className="basic"
-            type="text"
             value={user.lastName}
-            onChange={(event) => user.setLastName(event.target.value)}
+            onChange={user.setLastName}
           />
         </div>
         {/** Gender */}
@@ -95,27 +92,21 @@ export const Component = ({ className }: Props): JSX.Element => {
         {/** Date Of Birth */}
         <div className="input-container">
           <label htmlFor="dateOfBirth">Date Of Birth</label>
-          <input
+          <BaseInput
             id="dateOfBirth"
-            className={`
-              basic
-              ${user.existUser && "disabled"}
-            `}
             type="date"
             value={user.dateOfBirth}
+            onChange={user.setDateOfBirth}
             disabled={user.existUser}
-            onChange={(event) => user.setDateOfBirth(event.target.value)}
           />
         </div>
         {/** Height */}
         <div className="input-container">
           <label htmlFor="height">Height (cm)</label>
-          <input
+          <BaseInput
             id="height"
-            className="basic"
-            type="text"
             value={user.height}
-            onChange={(event) => user.setHeight(event.target.value)}
+            onChange={user.setHeight}
           />
         </div>
 
