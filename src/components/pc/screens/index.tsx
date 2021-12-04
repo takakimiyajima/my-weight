@@ -21,6 +21,7 @@ const StyledComponent = styled(Component)`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  padding: 30px;
   height: 40em;
   color: ${(props) => props.theme.orange};
 
