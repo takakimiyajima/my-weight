@@ -48,6 +48,7 @@ I'm using `next-useragent` to separate the SP and PC UI.
 | -----------     | ----------- |
 | public          | Static file |
 | src/components  | React components |
+| src/constants   | Where to put the constants |
 | src/entities    | See Data Layer above. |
 | src/hooks       | custom hooks |
 | src/libs        | Calling the library. Library repository written in Scratch. |
@@ -55,7 +56,6 @@ I'm using `next-useragent` to separate the SP and PC UI.
 | src/repositories| External API calls. Wrap API client code generated in the api directory. |
 | src/styles      | css |
 | src/test        | test (WIP) |
-| src/constants   | Where to put the constants |
 | src/utils       | General purpose utility |
 
 # CI and Deployment
