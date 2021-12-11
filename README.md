@@ -9,8 +9,7 @@ This is a app you can check your weight daily.
 # Why I created this app
 I created this app to show my developing skill.  
 I can write clean codes in Next.js and TypeScript with good architecture which makes the app sustainable.
-
-<!-- TODO: 工夫した点とか記載する -->
+ 
 
 <!-- TODO: 可能であればUIデザインもアピールする -->
 
@@ -20,6 +19,7 @@ I can write clean codes in Next.js and TypeScript with good architecture which m
 - styled-components
 - Sass
 - eslint, prettier
+- react-hook-form (validation)
 - husky
 - microCMS
 - Vercel
@@ -43,12 +43,27 @@ If you need some data using each entities, you can use hooks and make data at pr
 UI layer architecture is aware of AtomicDesign.
 I'm using `next-useragent` to separate the SP and PC UI.
 
+## Directory structure
+| Directory       | Detail         |
+| -----------     | ----------- |
+| public          | Static file |
+| src/components  | React components |
+| src/entities    | See Data Layer above. |
+| src/hooks       | custom hooks |
+| src/libs        | Calling the library. Library repository written in Scratch. |
+| src/pages       | Next.js Pages |
+| src/repositories| External API calls. Wrap API client code generated in the api directory. |
+| src/styles      | css |
+| src/test        | test (WIP) |
+| src/constants   | Where to put the constants |
+| src/utils       | General purpose utility |
+
 # CI and Deployment
 Checking eslint is done with husky when it is committed.
 Deployment is done automatically by Vercel.
 
 # Upcoming Features
-- login logout
+- Adjust style
 - Notifications
 - Cache data using SWR
 
