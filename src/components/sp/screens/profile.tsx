@@ -112,6 +112,7 @@ export const Component = ({ className }: Props): JSX.Element => {
               <BaseInput
                 inputName="dateOfBirth"
                 type="date"
+                disabled={user.existUser}
                 onBlurContext={user.setDateOfBirth}
               />
             </div>
