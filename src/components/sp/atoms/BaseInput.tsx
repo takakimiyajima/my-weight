@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useFormContext } from 'react-hook-form'
+import { VALIDATE } from '@/constants'
 
 export type ContainerProps = {
   inputName: string
@@ -24,6 +25,9 @@ export const Component = ({
   const { register, formState: { errors }} = useFormContext()
   const errorMessage = errors[inputName]
 
+  const validate = VALIDATE.find((v) =>
+    v.name === inputName)?.handle ?? {}
+
   return (
     <div className={className}>
       <input
@@ -35,7 +39,7 @@ export const Component = ({
         `}
         type={type}
         disabled={disabled}
-        {...register(inputName, { required: '* this is required filed' })}
+        {...register(inputName, validate)}
         onBlur={event => onBlurContext(event.target.value)}
       />
       {errorMessage && (
