@@ -1,9 +1,17 @@
 import React, { useState ,useContext } from 'react'
 import styled from 'styled-components'
 import { useSession } from 'next-auth/client'
+import { useForm, FormProvider } from 'react-hook-form'
 import { UserContext } from '@/contexts/user/userContext'
 import { Header, Footer } from '@/components/sp/layouts'
 import { BaseInput } from '@/components/sp/atoms'
+
+type FormState = {
+  firstName: string
+  lastName: string
+  dateOfBirth: string
+  height: string | number
+}
 
 export type ContainerProps = {
 }
@@ -18,14 +26,23 @@ export const Component = ({ className }: Props): JSX.Element => {
   const [session] = useSession()
   const userId = String(session.userId)
 
-  const registerUser = async() => {
+  const methods = useForm<FormState>({
+    mode: 'onChange',
+    defaultValues: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      dateOfBirth: user.dateOfBirth,
+      height: user.height,
+    },
+  })
+
+  /** When without error, execute */
+  const registerUser = async () => {
     setIsLoading(true)
-    if (user.existUser) {
-      await user.updateUser(userId)
-    }
-    else {
-      await user.createUser(userId)
-    }
+
+    user.existUser
+      ? await user.updateUser(userId)
+      : await user.createUser(userId)
     
     setIsLoading(false)
   }
@@ -34,95 +51,92 @@ export const Component = ({ className }: Props): JSX.Element => {
     <>
       <Header />
 
-      <div className={className}>
-        {!user.existUser &&
-          <div className="description">
-            <p>Welcome to MY WEIGHT CHECKER</p>
-            <p>Register your info</p>
-          </div>
-        }
-        {/** First Name */}
-        <div className="input-container">
-          <label htmlFor="firstName">First Name</label>
-          <BaseInput
-            id="firstName"
-            value={user.firstName}
-            onChange={user.setFirstName}
-          />
-        </div>
-        {/** Last Name */}
-        <div className="input-container">
-          <label htmlFor="lastName">Last Name</label>
-          <BaseInput
-            id="lastName"
-            value={user.lastName}
-            onChange={user.setLastName}
-          />
-        </div>
-        {/** Gender */}
-        <div className={"input-container"}>
-          <p>Gender</p>
-          <div className={`
-            basic
-            ${user.existUser && "disabled"}
-          `}>
-            <input
-              id="male"
-              name="gender"
-              type="radio"
-              value="male"
-              disabled={user.existUser}
-              checked={'male' === user.gender}
-              onChange={(event) => user.setGender(event.target.value)}
-            />
-            <label className="radio-label" htmlFor="male">Male</label>
-            <input
-              id="female"
-              className="female"
-              name="gender"
-              type="radio"
-              value="female"
-              disabled={user.existUser}
-              checked={'female' === user.gender}
-              onChange={(event) => user.setGender(event.target.value)}
-            />
-            <label className="radio-label female" htmlFor="female">Female</label>
-          </div>
-        </div>
-        {/** Date Of Birth */}
-        <div className="input-container">
-          <label htmlFor="dateOfBirth">Date Of Birth</label>
-          <BaseInput
-            id="dateOfBirth"
-            type="date"
-            value={user.dateOfBirth}
-            onChange={user.setDateOfBirth}
-            disabled={user.existUser}
-          />
-        </div>
-        {/** Height */}
-        <div className="input-container">
-          <label htmlFor="height">Height (cm)</label>
-          <BaseInput
-            id="height"
-            value={user.height}
-            onChange={user.setHeight}
-          />
-        </div>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(registerUser)}>
+          <div className={className}>
+            {!user.existUser &&
+              <div className="description">
+                <p>Welcome to MY WEIGHT CHECKER</p>
+                <p>Register your info</p>
+              </div>
+            }
+            {/** First Name */}
+            <div className="input-container">
+              <label htmlFor="firstName">First Name</label>
+              <BaseInput
+                inputName="firstName"
+                onBlurContext={user.setFirstName}
+              />
+            </div>
+            {/** Last Name */}
+            <div className="input-container">
+              <label htmlFor="lastName">Last Name</label>
+              <BaseInput
+                inputName="lastName"
+                onBlurContext={user.setLastName}
+              />
+            </div>
+            {/** Gender */}
+            <div className={"input-container"}>
+              <p>Gender</p>
+              <div className={`
+                basic
+                ${user.existUser && "disabled"}
+              `}>
+                <input
+                  id="male"
+                  name="gender"
+                  type="radio"
+                  value="male"
+                  disabled={user.existUser}
+                  checked={'male' === user.gender}
+                  onChange={(event) => user.setGender(event.target.value)}
+                />
+                <label className="radio-label" htmlFor="male">Male</label>
+                <input
+                  id="female"
+                  className="female"
+                  name="gender"
+                  type="radio"
+                  value="female"
+                  disabled={user.existUser}
+                  checked={'female' === user.gender}
+                  onChange={(event) => user.setGender(event.target.value)}
+                />
+                <label className="radio-label female" htmlFor="female">Female</label>
+              </div>
+            </div>
+            {/** Date Of Birth */}
+            <div className="input-container">
+              <label htmlFor="dateOfBirth">Date Of Birth</label>
+              <BaseInput
+                inputName="dateOfBirth"
+                type="date"
+                onBlurContext={user.setDateOfBirth}
+              />
+            </div>
+            {/** Height */}
+            <div className="input-container">
+              <label htmlFor="height">Height (cm)</label>
+              <BaseInput
+                inputName="height"
+                onBlurContext={user.setHeight}
+              />
+            </div>
 
-        <button
-          className={`
-            register
-            ${isLoading && "--disabled"}
-          `}
-          disabled={isLoading}
-          onClick={async () => {
-            await registerUser()
-          }}
-        >
-          Register
-        </button>
-      </div>
+            <button
+              type="submit"
+              className={`
+                register
+                ${isLoading && "--disabled"}
+              `}
+              disabled={isLoading}
+            >
+              Register
+            </button>
+          </div>
+        </form>
+      </FormProvider>
 
       <Footer />
     </>
@@ -140,7 +154,7 @@ const StyledComponent = styled(Component)`
     margin-bottom: 30px;
   }
 
-  > .input-container {
+  .input-container {
     position: relative;
     margin-top: 14px;
     font-size: 16px;
@@ -206,7 +220,7 @@ const StyledComponent = styled(Component)`
     }
   }
 
-  > .register {
+  .register {
     display: inline-block;
     position: relative;
     margin-top: 40px;

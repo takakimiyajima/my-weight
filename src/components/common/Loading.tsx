@@ -34,7 +34,6 @@ const StyledComponent = styled(Component)`
     animation: sk-scaleout 1.0s infinite ease-in-out;
   }
 
-  /* ローディングアニメーション */
   @keyframes sk-scaleout {
     0% {
       transform: scale(0);

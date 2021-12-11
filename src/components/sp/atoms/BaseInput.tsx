@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useFormContext } from 'react-hook-form'
 
 export type ContainerProps = {
-  id?: string
+  inputName: string
   type?: string
-  value: string | number
-  onChange: (value: string) => void
+  value?: string | number
+  onBlurContext?: (value: string) => void
   disabled?: boolean
 }
 
@@ -15,25 +16,31 @@ type Props = {
 
 export const Component = ({
   className,
-  id,
+  inputName,
   type = 'text',
-  value,
-  onChange,
+  onBlurContext = () => {},
   disabled = false,
 }: Props): JSX.Element => {
+  const { register, formState: { errors }} = useFormContext()
+  const errorMessage = errors[inputName]
+
   return (
     <div className={className}>
       <input
-        id={id}
+        name={inputName}
         className={`
           basic
-          ${disabled && "disabled"}
+          ${disabled && "--disabled"}
+          ${!!errorMessage && "--error"}
         `}
         type={type}
-        value={value}
-        onChange={event => onChange(event.target.value)}
         disabled={disabled}
+        {...register(inputName, { required: '* this is required filed' })}
+        onBlur={event => onBlurContext(event.target.value)}
       />
+      {errorMessage && (
+        <span className="errorMessage">{errorMessage.message}</span>
+      )}
     </div>
   )
 }
@@ -54,52 +61,17 @@ const StyledComponent = styled(Component)`
     border-radius: 10px;
     border: 1px solid ${(props) => props.theme.darkGrey};
 
-    &.disabled {
+    &.--disabled {
       background: ${(props) => props.theme.lightGrey};
     }
 
-    // radio button - related
-    > .radio-label {
-      position: relative;
-      padding:0 20px 0 30px;
+    &.--error {
+      border-color: ${(props) => props.theme.red};
     }
+  }
 
-    > .radio-label:after,
-      .radio-label:before {
-      position: absolute;
-      content: '';
-      display: block;
-      top: 50%;
-    }
-
-    > .radio-label:after {
-      left: 12px;
-      transform: translateY(-50%) translateX(-50%);
-      width: 16px;
-      height: 16px;
-      border: 2px solid ${(props) => props.theme.gray};
-      border-radius: 50%;
-      opacity: 1;
-      transition: opacity 0.4s ease-out;
-    }
-
-    > .radio-label:before {
-      left: 7px;
-      margin-top: -5px;
-      width: 10px;
-      height: 10px;
-      background: ${(props) => props.theme.green};
-      border-radius: 50%;
-      opacity: 0;
-    }
-
-    input[type=radio]:checked + .radio-label:before {
-      opacity: 1;
-    }
-    .radio-label:hover:after {
-      opacity: 0.6;
-      transition: opacity 0.4s ease-out;
-    }
+  > .errorMessage {
+    color: ${((props) => props.theme.red)};
   }
 `
 
