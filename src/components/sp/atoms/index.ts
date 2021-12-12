@@ -4,3 +4,4 @@
 
 export * from './BaseInput'
 export * from './BaseRadio'
+export * from './SubWeightParameter'

@@ -7,7 +7,7 @@ type Props = {
   className?: string
 }
 
-export const Component = ({ className }: Props): JSX.Element => {
+const Component = ({ className }: Props): JSX.Element => {
   const {
     weeklyWeights
   } = useContext(UserWeightContext)

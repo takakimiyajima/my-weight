@@ -13,9 +13,6 @@ type FormState = {
   height: string | number
 }
 
-export type ContainerProps = {
-}
-
 type Props = {
   className?: string
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { UserWeightContext } from '@/contexts/weight/weightContext'
 import { Header, Footer } from '@/components/sp/layouts'
 import { Loading } from '@/components/common/Loading'
-import { LineChart } from '@/components/sp/molecules/lineChart'
+import { LineChart, SubWeightParameters } from '@/components/sp/molecules'
 
 type Props = {
   className?: string
@@ -18,8 +18,6 @@ export const Component = ({ className }: Props): JSX.Element => {
     registerWeight,
     fetchWeights,
     latestWeight,
-    bmi,
-    sbw
   } = useContext(UserWeightContext)
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -87,20 +85,7 @@ export const Component = ({ className }: Props): JSX.Element => {
           </div>
           <LineChart />
         </div>
-        <div className="sub-parameters">
-          <div className="container">
-            {/** BMI: 標準体重指数 */}
-            <div className="title">BMI</div>
-            <div className="shape">Obesity</div>
-            <div className="weight">{bmi()}<span className="kg"></span></div>
-          </div>
-          <div className="container">
-            {/** SBW(standard body weight): 標準体重 */}
-            <div className="title">SBW</div>
-            <div className="shape">Body shape</div>
-            <div className="weight">{sbw()}<span className="kg">kg</span></div>
-          </div>
-        </div>
+        <SubWeightParameters />
       </div>
 
       <Footer />
@@ -190,6 +175,7 @@ const StyledComponent = styled(Component)`
       font-size: 14px;
       font-weight: bold;
     }
+
     > .shape {
       font-size: 12px;
     }
@@ -197,50 +183,10 @@ const StyledComponent = styled(Component)`
     > .weight {
       text-align: center;
       font-size: 56px;
+
       > .kg {
         margin-left: 10px;
         font-size: 20px;
-      }
-    }
-
-    > .chart {
-      font-size: 12px;
-      font-weight: bold;
-    }
-  }
-
-  > .sub-parameters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-    margin: auto;
-
-    > .container {
-      margin-top: 20px;
-      padding: 12px;
-      border-radius: 10px;
-      width: 48%;
-      height: 160px;
-      color: ${(props) => props.theme.white};
-      background: ${(props) => props.theme.yellow};
-
-      > .title {
-        font-size: 14px;
-        font-weight: bold;
-      }
-
-      > .shape {
-        font-size: 12px;
-      }
-
-      > .weight {
-        text-align: center;
-        font-size: 40px;
-        > .kg {
-          margin-left: 10px;
-          font-size: 20px;
-        }
       }
     }
   }
