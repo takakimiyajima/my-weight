@@ -123,6 +123,8 @@ ol {
 
 [type="date"] {
   position: relative;
+  text-align: left;
+  text-align: -webkit-left;
 }
 [type=date]::-webkit-calendar-picker-indicator {
   position: absolute;
