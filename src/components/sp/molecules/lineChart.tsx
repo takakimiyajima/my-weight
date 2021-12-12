@@ -61,7 +61,6 @@ const StyledComponent = styled(Component)`
   .tooltip {
     border-radius: 0.25rem;
     background: #26313c;
-    color: ${(props) => props.theme.white};
     padding: 1rem;
     box-shadow: 15px 30px 48px 5px rgba(0, 0, 0, 0.5);
     text-align: center;
