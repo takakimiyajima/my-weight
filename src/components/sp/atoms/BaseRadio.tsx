@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export type Value = string | number
+type Value = string | number
 
 export type Radio = {
   label: string
   value: Value
 }
 
-export type ContainerProps = {
+type ContainerProps = {
   title: string
   defaultValue: Value
   radioList: Array<Radio>
@@ -20,12 +20,12 @@ type Props = {
   className?: string
 } & ContainerProps
 
-export const Component = ({
+const Component = ({
   className,
   title,
   defaultValue,
   radioList,
-  onChangeContext = () => {},
+  onChangeContext,
   disabled = false,
 }: Props): JSX.Element => {
   return (
@@ -72,7 +72,6 @@ const StyledComponent = styled(Component)`
       background: ${(props) => props.theme.lightGrey};
     }
 
-    // radio button - related
     > .radio-list {
       > .radio-label {
         position: relative;

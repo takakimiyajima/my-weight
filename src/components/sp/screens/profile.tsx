@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/client'
 import { useForm, FormProvider } from 'react-hook-form'
 import { UserContext } from '@/contexts/user/userContext'
 import { Header, Footer } from '@/components/sp/layouts'
-import { BaseInput, BaseRadio ,Radio } from '@/components/sp/atoms'
+import { BaseInput, BaseRadio, Radio } from '@/components/sp/atoms'
 
 type FormState = {
   firstName: string
@@ -47,7 +47,7 @@ export const Component = ({ className }: Props): JSX.Element => {
     setIsLoading(false)
   }
 
-  const radioList: Array<Radio> = [
+  const genderList: Array<Radio> = [
     {
       label: 'Female',
       value: 'female',
@@ -92,7 +92,7 @@ export const Component = ({ className }: Props): JSX.Element => {
               <BaseRadio
                 title="Gender"
                 defaultValue={user.gender}
-                radioList={radioList}
+                radioList={genderList}
                 disabled={user.existUser}
                 onChangeContext={user.setGender}
               />

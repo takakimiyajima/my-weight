@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useFormContext } from 'react-hook-form'
 import { VALIDATE } from '@/constants'
 
-export type ContainerProps = {
+type ContainerProps = {
   inputName: string
   type?: string
   value?: string | number
@@ -15,7 +15,7 @@ type Props = {
   className?: string
 } & ContainerProps
 
-export const Component = ({
+const Component = ({
   className,
   inputName,
   type = 'text',
