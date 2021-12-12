@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactNode } from 'react'
 import { UserWeightContext, UserWeightContextType } from './weightContext'
 import { UserEntity, WeightEntity } from '@/entities'
 import { WeightRepository } from '@/repositories'
@@ -6,7 +6,7 @@ import { getFormattedDate, getSortTheLastOneWeek } from '@/utils'
 import { today, currentlyHour } from '@/utils'
 
 export interface ProviderProps {
-  children?: React.ReactNode
+  children?: ReactNode
   user: UserEntity
   originalWeights: Array<WeightEntity>
 }

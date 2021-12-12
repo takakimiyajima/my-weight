@@ -46,7 +46,6 @@ export const Component = ({ className }: Props): JSX.Element => {
               className="weight-input"
               type="date"
               value={workOutDate}
-              placeholder="01/01/2021"
               onChange={(event) => setWorkOutDate(event.target.value)}
             />
           </div>
