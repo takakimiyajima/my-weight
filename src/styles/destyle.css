@@ -131,7 +131,10 @@ ol {
   opacity: 0;
 }
 
-/** for iOS 15 */
+/**
+　* for iOS 15
+　* NOTE: https://developer.apple.com/forums/thread/691305
+　*/
 input::-webkit-date-and-time-value{ text-align:left; }
 
 /**
