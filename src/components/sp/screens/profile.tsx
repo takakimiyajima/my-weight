@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/client'
 import { useForm, FormProvider } from 'react-hook-form'
 import { UserContext } from '@/contexts/user/userContext'
 import { Header, Footer } from '@/components/sp/layouts'
-import { BaseInput } from '@/components/sp/atoms'
+import { BaseInput, BaseRadio ,Radio } from '@/components/sp/atoms'
 
 type FormState = {
   firstName: string
@@ -47,6 +47,17 @@ export const Component = ({ className }: Props): JSX.Element => {
     setIsLoading(false)
   }
 
+  const radioList: Array<Radio> = [
+    {
+      label: 'Female',
+      value: 'female',
+    },
+    {
+      label: 'Male',
+      value: 'male',
+    },
+  ]
+
   return (
     <>
       <Header />
@@ -77,34 +88,14 @@ export const Component = ({ className }: Props): JSX.Element => {
               />
             </div>
             {/** Gender */}
-            <div className={"input-container"}>
-              <p>Gender</p>
-              <div className={`
-                basic
-                ${user.existUser && "disabled"}
-              `}>
-                <input
-                  id="male"
-                  name="gender"
-                  type="radio"
-                  value="male"
-                  disabled={user.existUser}
-                  checked={'male' === user.gender}
-                  onChange={(event) => user.setGender(event.target.value)}
-                />
-                <label className="radio-label" htmlFor="male">Male</label>
-                <input
-                  id="female"
-                  className="female"
-                  name="gender"
-                  type="radio"
-                  value="female"
-                  disabled={user.existUser}
-                  checked={'female' === user.gender}
-                  onChange={(event) => user.setGender(event.target.value)}
-                />
-                <label className="radio-label female" htmlFor="female">Female</label>
-              </div>
+            <div className="input-container">
+              <BaseRadio
+                title="Gender"
+                defaultValue={user.gender}
+                radioList={radioList}
+                disabled={user.existUser}
+                onChangeContext={user.setGender}
+              />
             </div>
             {/** Date Of Birth */}
             <div className="input-container">
@@ -163,61 +154,6 @@ const StyledComponent = styled(Component)`
 
     &:first-child {
       margin-top: 0;
-    }
-
-    > .basic {
-      margin-top: 2px;
-      padding: 12px;
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid ${(props) => props.theme.darkGrey};
-
-      &.disabled {
-        background: ${(props) => props.theme.lightGrey};
-      }
-
-      // radio button - related
-      > .radio-label {
-        position: relative;
-        padding:0 20px 0 30px;
-      }
-
-      > .radio-label:after,
-        .radio-label:before {
-        position: absolute;
-        content: '';
-        display: block;
-        top: 50%;
-      }
-
-      > .radio-label:after {
-        left: 12px;
-        transform: translateY(-50%) translateX(-50%);
-        width: 16px;
-        height: 16px;
-        border: 2px solid ${(props) => props.theme.gray};
-        border-radius: 50%;
-        opacity: 1;
-        transition: opacity 0.4s ease-out;
-      }
-
-      > .radio-label:before {
-        left: 7px;
-        margin-top: -5px;
-        width: 10px;
-        height: 10px;
-        background: ${(props) => props.theme.green};
-        border-radius: 50%;
-        opacity: 0;
-      }
-
-      input[type=radio]:checked + .radio-label:before {
-        opacity: 1;
-      }
-      .radio-label:hover:after {
-        opacity: 0.6;
-        transition: opacity 0.4s ease-out;
-      }
     }
   }
 

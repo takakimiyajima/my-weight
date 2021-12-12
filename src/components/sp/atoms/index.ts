@@ -3,3 +3,4 @@
  */
 
 export * from './BaseInput'
+export * from './BaseRadio'
