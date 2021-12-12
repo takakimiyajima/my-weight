@@ -140,7 +140,7 @@ const StyledComponent = styled(Component)`
       opacity: 1;
       transition: opacity 0.4s ease-out;
   
-      &--disabled {
+      &.--disabled {
         opacity: 0.4;
       }
   
