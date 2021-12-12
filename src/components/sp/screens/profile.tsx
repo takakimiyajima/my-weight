@@ -1,4 +1,4 @@
-import React, { useState ,useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { useSession } from 'next-auth/client'
 import { useForm, FormProvider } from 'react-hook-form'
@@ -35,6 +35,9 @@ export const Component = ({ className }: Props): JSX.Element => {
       height: user.height,
     },
   })
+
+  // NOTE: We can't default isValid https://github.com/react-hook-form/react-hook-form/issues/2755
+  const isValid = !Object.keys(methods.formState.errors).length
 
   /** When without error, execute */
   const registerUser = async () => {
@@ -120,9 +123,9 @@ export const Component = ({ className }: Props): JSX.Element => {
               type="submit"
               className={`
                 register
-                ${isLoading && "--disabled"}
+                ${!isValid && "--disabled"}
               `}
-              disabled={isLoading}
+              disabled={isLoading || !isValid}
             >
               Register
             </button>
@@ -173,7 +176,7 @@ const StyledComponent = styled(Component)`
     opacity: 1;
     transition: opacity 0.4s ease-out;
 
-    &--disabled {
+    &.--disabled {
       opacity: 0.4;
     }
 
