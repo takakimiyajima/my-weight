@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { signOut } from 'next-auth/client'
@@ -11,28 +12,48 @@ type Props = {
   className?: string
 } & ContainerProps
 
-const Component = ({ className, visible }: Props) => (
-  <Drawer visible={visible}>
-    <div className={className}>
-      <dl>
-        <dt>Menu</dt>
-        <dd>
-          <Link href="/" passHref>
-            <a className="menuLink">Top</a>
-          </Link>
-          <Link href="/profile" passHref>
-            <a className="menuLink">Profile</a>
-          </Link>
-          <Link href="#" passHref>
-            <p className="menuLink" onClick={() => signOut()}>
-              Logout
-            </p>
-          </Link>
-        </dd>
-      </dl>
-    </div>
-  </Drawer>
-)
+type Menu = {
+  path: string
+  text: string
+}
+
+const menus: Array<Menu> = [
+  {
+    path: '/',
+    text: 'Top',
+  },
+  {
+    path: '/profile',
+    text: 'Profile',
+  },
+]
+
+const Component = ({ className, visible }: Props) => {
+  const { pathname } = useRouter()
+
+  return (
+    <Drawer visible={visible}>
+      <div className={className}>
+        <dl>
+          <dt>Menu</dt>
+          <dd>
+            {menus.map(({ path, text }, index) => (
+              path !== pathname && 
+                <Link href={path} passHref key={`menu-${index}`}>
+                  <a className="menuLink">{text}</a>
+                </Link>
+            ))}
+            <Link href="#" passHref>
+              <p className="menuLink" onClick={() => signOut()}>
+                Logout
+              </p>
+            </Link>
+          </dd>
+        </dl>
+      </div>
+    </Drawer>
+  )
+}
 
 const StyledComponent = styled(Component)`
   dl {
@@ -55,7 +76,7 @@ const StyledComponent = styled(Component)`
       line-height: 60px;
 
       .menuLink {
-        border-bottom: 1px solid ${(props) => props.theme.lightGray};
+        border-bottom: 1px solid ${(props) => props.theme.green};
         background-size: 14px 13px;
         color: ${(props) => props.theme.green};
         display: flex;
