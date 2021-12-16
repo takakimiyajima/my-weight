@@ -16,7 +16,7 @@ dayjs.extend(utc)
 // const GMT_MINUS_8= 'America/Los_Angeles'
 
 /** e.g. 2020-01-01 */
-const yyyyMMDD = 'YYYY-MM-DD'
+export const yyyyMMDD = 'YYYY-MM-DD'
 
 export const today = () => dayjs()
 

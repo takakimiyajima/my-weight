@@ -29,24 +29,6 @@ export const unauthorizedError = {
   },
 }
 
-export const notFoundError = {
-  props: {
-    error: {
-      statusCode: 404,
-      message: 'not found error',
-    },
-  },
-}
-
-export const internalServerError = {
-  props: {
-    error: {
-      statusCode: 500,
-      message: 'internal server error',
-    },
-  },
-}
-
 export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<{ props: Props }> {

@@ -63,7 +63,7 @@ export class WeightRepository {
    * Update weight
    * @param weight
    */
-   static patchWeight = async (weight: updateWeight): Promise<null> => {
+   static patchWeight = async (weight: updateWeight) => {
     try {
       return await axios.patch(
         `${PATH}${ENDPOINTS.weight}/${weight.contentId}`,

@@ -16,7 +16,6 @@ export const Component = ({ className }: Props): JSX.Element => {
     weight,
     setWeight,
     registerWeight,
-    fetchWeights,
     latestWeight,
   } = useContext(UserWeightContext)
 
@@ -25,7 +24,6 @@ export const Component = ({ className }: Props): JSX.Element => {
   const updateWeights = async (): Promise<void> => {
     setIsLoading(true)
     await registerWeight()
-    await fetchWeights()
     setIsLoading(false)
   }
 

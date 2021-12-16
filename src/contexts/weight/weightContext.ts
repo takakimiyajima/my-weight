@@ -7,7 +7,6 @@ export interface UserWeightContextType {
   weight: number | string,
   setWeight: Dispatch<SetStateAction<number | string>>,
   registerWeight: () => Promise<void>,
-  fetchWeights: () => Promise<void>,
   weeklyWeights: () => Array<{
     weight: number | null,
     day: string
@@ -23,7 +22,6 @@ export const UserWeightContext = createContext<UserWeightContextType>({
   weight: null,
   setWeight: () => {},
   registerWeight: async () => {},
-  fetchWeights: async () => {},
   weeklyWeights: () => [],
   latestWeight: () => null,
   bmi: () => null,

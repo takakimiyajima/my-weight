@@ -2,8 +2,13 @@ import React, { useState, ReactNode } from 'react'
 import { UserWeightContext, UserWeightContextType } from './weightContext'
 import { UserEntity, WeightEntity } from '@/entities'
 import { WeightRepository } from '@/repositories'
-import { getFormattedDate, getSortTheLastOneWeek } from '@/utils'
-import { today, currentlyHour } from '@/utils'
+import {
+  getFormattedDate,
+  getSortTheLastOneWeek,
+  yyyyMMDD,
+  today,
+  currentlyHour
+} from '@/utils'
 
 export interface ProviderProps {
   children?: ReactNode
@@ -18,38 +23,53 @@ export const UserWeightContextProvider = ({
   /**************************************
    * Register-related
    **************************************/
-  const [workOutDate, setWorkOutDate] = useState<string>(today().format('YYYY-MM-DD'))
+  const [workOutDate, setWorkOutDate] = useState<string>(today().format(yyyyMMDD))
   const [weight, setWeight] = useState<number | string>('')
   const [weights, setWeights] = useState<Array<WeightEntity>>(originalWeights)
 
-  /** Weight that has already registered on workOutDate the user chose */
+  /** Weight that has ALREADY registered on workOutDate the user chose */
   const registeredWeight = (): WeightEntity | null =>
     weights.find((weight) => weight.workOutDate === workOutDate) ?? null
 
-  const registerWeight = async (): Promise<void> => {
-    /** Patch weight, when user have already registered workOutDate */
-    if (registeredWeight()) {
-      await WeightRepository.patchWeight({
-        contentId: registeredWeight().contentId,
-        userId: user.id,
-        weight: Number(weight),
-        workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
-      })
-
-      return
-    }
-
-    /** Create weight, when user haven't registered workOutDate yet */
-    await WeightRepository.createWeight({
+  /** Create new weight */
+  const createWeight = async (): Promise<void> => {
+    return await WeightRepository.createWeight({
       userId: user.id,
       weight: Number(weight),
       workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
     })
   }
 
-  const fetchWeights = async (): Promise<void> => {
-    const newWeights = await WeightRepository.fetchWeights(user.id) ?? []
-    setWeights(newWeights)
+  /** Update weight by contentID */
+  const patchWeight = async (): Promise<void> => {
+    const updateWeight = await WeightRepository.patchWeight({
+      contentId: registeredWeight().contentId,
+      userId: user.id,
+      weight: Number(weight),
+      workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
+    })
+
+    if (updateWeight && updateWeight.config) {
+      const { weight, workOutDate } = JSON.parse(updateWeight.config.data)
+      const updateWeights = weights.map((w) => {
+        if (w.contentId === registeredWeight().contentId) {
+          return {
+            contentId: registeredWeight().contentId,
+            weight: weight,
+            workOutDate: getFormattedDate(workOutDate, yyyyMMDD)
+          }
+        }
+
+        return w
+      })
+
+      setWeights(updateWeights)
+    }
+  }
+
+  const registerWeight = async (): Promise<void> => {
+    /** Patch weight, when user have already registered workOutDate */
+    registeredWeight() ? await patchWeight() : await createWeight()
   }
 
   /**************************************
@@ -57,7 +77,7 @@ export const UserWeightContextProvider = ({
    **************************************/
   const latestWeight = () => weights[0]?.weight || null
 
-  const getMeterHeight = (): number | null => {
+  const meterHeight = (): number | null => {
     return !!user ? (parseInt(user?.height, 10) / 100) : null
   }
 
@@ -74,17 +94,17 @@ export const UserWeightContextProvider = ({
 
   /** BMI:　体重(kg) ÷ {身長(m) Ｘ 身長(m)} */
   const bmi = () => {
-    if (!latestWeight() || !getMeterHeight()) {
+    if (!latestWeight() || !meterHeight()) {
       return null
     }
 
-    return (latestWeight() / (getMeterHeight() ** 2)).toFixed(1)
+    return (latestWeight() / (meterHeight() ** 2)).toFixed(1)
   }
 
   /** SBW(standard body weight): 標準体重 */
   const sbw = () => {
-    return getMeterHeight()
-      ? (22 * (getMeterHeight() ** 2)).toFixed(1)
+    return meterHeight()
+      ? (22 * (meterHeight() ** 2)).toFixed(1)
       : null
   }
 
@@ -94,7 +114,6 @@ export const UserWeightContextProvider = ({
     weight,
     setWeight,
     registerWeight,
-    fetchWeights,
     weeklyWeights,
     latestWeight,
     bmi,
