@@ -1,9 +1,14 @@
 import React, { useState ,useContext } from 'react'
 import styled from 'styled-components'
+import { useForm, FormProvider } from 'react-hook-form'
 import { UserWeightContext } from '@/contexts/weight/weightContext'
 import { Header, Footer } from '@/components/sp/layouts'
 import { Loading } from '@/components/common/Loading'
 import { LineChart, SubWeightParameters } from '@/components/sp/molecules'
+
+type FormState = {
+  weight: number | string
+}
 
 type Props = {
   className?: string
@@ -27,6 +32,13 @@ export const Component = ({ className }: Props): JSX.Element => {
     setIsLoading(false)
   }
 
+  const methods = useForm<FormState>({
+    mode: 'onChange',
+    defaultValues: {
+      weight
+    },
+  })
+
   if (isLoading) {
     return <Loading />
   }
@@ -35,55 +47,57 @@ export const Component = ({ className }: Props): JSX.Element => {
     <>
       <Header />
 
-      <div className={className}>
-        <div className="weight-input-container">
-          <div className="weight-input-inner">
-            <label htmlFor="workOutDate">Work Out Date</label>
-            <input
-              id="workOutDate"
-              className="weight-input"
-              type="date"
-              value={workOutDate}
-              onChange={(event) => setWorkOutDate(event.target.value)}
-            />
+      <FormProvider {...methods}>
+        <div className={className}>
+          <div className="weight-input-container">
+            <div className="weight-input-inner">
+              <label htmlFor="workOutDate">Work Out Date</label>
+              <input
+                id="workOutDate"
+                className="weight-input"
+                type="date"
+                value={workOutDate}
+                onChange={(event) => setWorkOutDate(event.target.value)}
+              />
+            </div>
+            <div className="weight-input-inner">
+              <label htmlFor="weight">Weight</label>
+              <input
+                id="weight"
+                className="weight-input"
+                type="number"
+                value={weight}
+                onChange={(event) => setWeight(event.target.value)}
+              />
+            </div>
+            <button
+              className={`
+                register
+                ${(!workOutDate || !weight) && "--disabled"}
+              `}
+              disabled={!workOutDate || !weight}
+              onClick={async () => await updateWeights()}
+            >
+              Register
+            </button>
           </div>
-          <div className="weight-input-inner">
-            <label htmlFor="weight">Weight</label>
-            <input
-              id="weight"
-              className="weight-input"
-              type="number"
-              value={weight}
-              onChange={(event) => setWeight(event.target.value)}
-            />
+          <div className="weight-weekly-container">
+            <div className="title">Prev Body Weight</div>
+            <div className="shape">Body shape</div>
+            <div className="weight">
+              {latestWeight()
+                ?
+                  <>
+                    {latestWeight()}<span className="kg">kg</span>
+                  </>
+                : '-'
+              }
+            </div>
+            <LineChart />
           </div>
-          <button
-            className={`
-              register
-              ${(!workOutDate || !weight) && "--disabled"}
-            `}
-            disabled={!workOutDate || !weight}
-            onClick={async () => await updateWeights()}
-          >
-            Register
-          </button>
+          <SubWeightParameters />
         </div>
-        <div className="weight-weekly-container">
-          <div className="title">Prev Body Weight</div>
-          <div className="shape">Body shape</div>
-          <div className="weight">
-            {latestWeight()
-              ?
-                <>
-                  {latestWeight()}<span className="kg">kg</span>
-                </>
-              : '-'
-            }
-          </div>
-          <LineChart />
-        </div>
-        <SubWeightParameters />
-      </div>
+      </FormProvider>
 
       <Footer />
     </>
