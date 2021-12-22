@@ -44,9 +44,9 @@ export class WeightRepository {
    * Create weight
    * @param weight
    */
-   static createWeight = async (weight: BaseWeight): Promise<null> => {
+   static createWeight = async (weight: BaseWeight) => {
     try {
-      return await axios.post(
+      const res = await axios.post(
         `${PATH}${ENDPOINTS.weight}`,
         {
           userId: weight.userId,
@@ -54,6 +54,8 @@ export class WeightRepository {
           workOutDate: weight.workOutDate
         }
       )
+
+      return [res.data.id, res.config.data]
     } catch (error) {
       console.error(error)
     }
@@ -65,7 +67,7 @@ export class WeightRepository {
    */
    static patchWeight = async (weight: updateWeight) => {
     try {
-      return await axios.patch(
+      const res = await axios.patch(
         `${PATH}${ENDPOINTS.weight}/${weight.contentId}`,
         {
           userId: weight.userId,
@@ -73,6 +75,8 @@ export class WeightRepository {
           workOutDate: weight.workOutDate
         }
       )
+
+      return [res.data.id, res.config.data]
     } catch (error) {
       console.error(error)
     }

@@ -33,38 +33,56 @@ export const UserWeightContextProvider = ({
 
   /** Create new weight */
   const createWeight = async (): Promise<void> => {
-    return await WeightRepository.createWeight({
+    const [contentId, newWeight] = await WeightRepository.createWeight({
       userId: user.id,
       weight: Number(weight),
       workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
     })
+
+    if (newWeight) {
+      addWeight(contentId)
+    }
   }
 
   /** Update weight by contentID */
   const patchWeight = async (): Promise<void> => {
-    const updateWeight = await WeightRepository.patchWeight({
+    const [contentId, updateWeight] = await WeightRepository.patchWeight({
       contentId: registeredWeight().contentId,
       userId: user.id,
       weight: Number(weight),
       workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
     })
 
-    if (updateWeight && updateWeight.config) {
-      const { weight, workOutDate } = JSON.parse(updateWeight.config.data)
-      const updateWeights = weights.map((w) => {
-        if (w.contentId === registeredWeight().contentId) {
-          return {
-            contentId: registeredWeight().contentId,
-            weight: weight,
-            workOutDate: getFormattedDate(workOutDate, yyyyMMDD)
-          }
-        }
-
-        return w
-      })
-
-      setWeights(updateWeights)
+    if (updateWeight) {
+      changeWeight(contentId)
     }
+  }
+
+  const addWeight = (contentId: string) => {
+    setWeights([
+      ...weights,
+      {
+        contentId,
+        weight: Number(weight),
+        workOutDate
+      }
+    ])
+  }
+
+  const changeWeight = (contentId: string) => {
+    const updateWeights = weights.map((w) => {
+      if (w.contentId === contentId) {
+        return {
+          contentId,
+          weight: Number(weight),
+          workOutDate: getFormattedDate(workOutDate, yyyyMMDD)
+        }
+      }
+
+      return w
+    })
+
+    setWeights(updateWeights)
   }
 
   const registerWeight = async (): Promise<void> => {
