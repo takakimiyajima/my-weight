@@ -21,44 +21,16 @@ export const UserWeightContextProvider = ({
   originalWeights,
 }: ProviderProps) => {
   /**************************************
-   * Register-related
+   * State
    **************************************/
   const [workOutDate, setWorkOutDate] = useState<string>(today().format(yyyyMMDD))
   const [weight, setWeight] = useState<number | string>('')
   const [weights, setWeights] = useState<Array<WeightEntity>>(originalWeights)
 
-  /** Weight that has ALREADY registered on workOutDate the user chose */
-  const registeredWeight = (): WeightEntity | null =>
-    weights.find((weight) => weight.workOutDate === workOutDate) ?? null
-
-  /** Create new weight */
-  const createWeight = async (): Promise<void> => {
-    const [contentId, newWeight] = await WeightRepository.createWeight({
-      userId: user.id,
-      weight: Number(weight),
-      workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
-    })
-
-    if (newWeight) {
-      addWeight(contentId)
-    }
-  }
-
-  /** Update weight by contentID */
-  const patchWeight = async (): Promise<void> => {
-    const [contentId, updateWeight] = await WeightRepository.patchWeight({
-      contentId: registeredWeight().contentId,
-      userId: user.id,
-      weight: Number(weight),
-      workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
-    })
-
-    if (updateWeight) {
-      changeWeight(contentId)
-    }
-  }
-
-  const addWeight = (contentId: string) => {
+  /**************************************
+   * Mutate
+   **************************************/
+  const addStateWeight = (contentId: string) => {
     setWeights([
       ...weights,
       {
@@ -69,7 +41,7 @@ export const UserWeightContextProvider = ({
     ])
   }
 
-  const changeWeight = (contentId: string) => {
+  const changeStateWeight = (contentId: string) => {
     const updateWeights = weights.map((w) => {
       if (w.contentId === contentId) {
         return {
@@ -85,14 +57,49 @@ export const UserWeightContextProvider = ({
     setWeights(updateWeights)
   }
 
+  /**************************************
+   * API
+   **************************************/
   const registerWeight = async (): Promise<void> => {
     /** Patch weight, when user have already registered workOutDate */
     registeredWeight() ? await patchWeight() : await createWeight()
   }
 
+  /** Create new weight */
+  const createWeight = async (): Promise<void> => {
+    const [contentId, newWeight] = await WeightRepository.createWeight({
+      userId: user.id,
+      weight: Number(weight),
+      workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
+    })
+
+    if (newWeight) {
+      addStateWeight(contentId)
+    }
+  }
+
+  /** Update weight by contentID */
+  const patchWeight = async (): Promise<void> => {
+    const [contentId, updateWeight] = await WeightRepository.patchWeight({
+      contentId: registeredWeight().contentId,
+      userId: user.id,
+      weight: Number(weight),
+      workOutDate: `${workOutDate} ${currentlyHour()}:00:00.000`,
+    })
+
+    if (updateWeight) {
+      changeStateWeight(contentId)
+    }
+  }
+
   /**************************************
-   * Display-related
+   * Display-related data
    **************************************/
+
+  /** Weight that has ALREADY registered on workOutDate the user chose */
+  const registeredWeight = (): WeightEntity | null =>
+    weights.find((weight) => weight.workOutDate === workOutDate) ?? null
+
   const latestWeight = () => weights[0]?.weight || null
 
   const meterHeight = (): number | null => {
