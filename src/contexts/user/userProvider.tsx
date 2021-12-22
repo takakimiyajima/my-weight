@@ -10,8 +10,13 @@ export interface ProviderProps {
 }
 
 export const UserContextProvider = ({ children, user }: ProviderProps) => {
+  const router = useRouter()
   const existUser = !!user
   const contentId = user?.contentId ?? null
+
+  /**************************************
+   * State
+   **************************************/
   const [firstName, setFirstName] = useState<string>(user?.firstName ?? '')
   const [lastName, setLastName] = useState<string>(user?.lastName ?? '')
   const [gender, setGender] = useState<string>(user?.gender ?? 'male')
@@ -20,8 +25,9 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
   )
   const [height, setHeight] = useState<string | null>(user?.height ?? '')
 
-  const router = useRouter()
-
+  /**************************************
+   * API
+   **************************************/
   const createUser = async (userId: string) => {
     await UserRepository.createUser({
       userId,
@@ -48,7 +54,7 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
     })
 
     /** redirect TOP page */
-    router.push('/')
+    await router.push('/')
   }
 
   const newContext: UserContextType = {
@@ -68,6 +74,8 @@ export const UserContextProvider = ({ children, user }: ProviderProps) => {
   }
 
   return (
-    <UserContext.Provider value={newContext}>{children}</UserContext.Provider>
+    <UserContext.Provider value={newContext}>
+      {children}
+    </UserContext.Provider>
   )
 }
