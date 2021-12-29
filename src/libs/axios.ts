@@ -1,8 +1,5 @@
 import axiosBase from 'axios'
 
-/**
- * PickgoのRubyサーバと通信するためのaxiosインスタンス
- */
 const axios = axiosBase.create({
   headers: {
     /** FIXME: fix token for POST */
