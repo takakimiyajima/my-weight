@@ -85,10 +85,10 @@ export const Component = ({ className }: Props): JSX.Element => {
             <div className="title">Prev Body Weight</div>
             <div className="shape">Body shape</div>
             <div className="weight">
-              {latestWeight()
+              {latestWeight
                 ?
                   <>
-                    {latestWeight()}<span className="kg">kg</span>
+                    {latestWeight}<span className="kg">kg</span>
                   </>
                 : '-'
               }
