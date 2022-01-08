@@ -11,7 +11,7 @@ export interface UserWeightContextType {
     weight: number | null,
     day: string
   }>
-  latestWeight: () => number | null
+  latestWeight: number | null
   bmi: () => string | null
   sbw: () => string | null
 }
@@ -23,7 +23,7 @@ export const UserWeightContext = createContext<UserWeightContextType>({
   setWeight: () => {},
   registerWeight: async () => {},
   weeklyWeights: () => [],
-  latestWeight: () => null,
+  latestWeight: null,
   bmi: () => null,
   sbw: () => null,
 })

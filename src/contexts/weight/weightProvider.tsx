@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from 'react'
+import React, { useState, useMemo, ReactNode } from 'react'
 import { UserWeightContext, UserWeightContextType } from './weightContext'
 import { UserEntity, WeightEntity } from '@/entities'
 import { WeightRepository } from '@/repositories'
@@ -100,7 +100,8 @@ export const UserWeightContextProvider = ({
   const registeredWeight = (): WeightEntity | null =>
     weights.find((weight) => weight.workOutDate === workOutDate) ?? null
 
-  const latestWeight = () => weights[0]?.weight || null
+  const gwtLatestWeight = () => weights[0]?.weight || null
+  const latestWeight = useMemo(gwtLatestWeight, [weights])
 
   const meterHeight = (): number | null => {
     return !!user ? (parseInt(user?.height, 10) / 100) : null
@@ -108,10 +109,10 @@ export const UserWeightContextProvider = ({
 
   const weeklyWeights = () => {
     return getSortTheLastOneWeek().map((day) => {
-      const hasDate = weights?.find(({ workOutDate }) => workOutDate === day)
+      const date = weights?.find(({ workOutDate }) => workOutDate === day)
       
       return {
-        weight: hasDate ? hasDate.weight : null,
+        weight: date ? date.weight : null,
         day: getFormattedDate(day, 'MM/DD')
       }
     })
@@ -119,11 +120,11 @@ export const UserWeightContextProvider = ({
 
   /** BMI:　体重(kg) ÷ {身長(m) Ｘ 身長(m)} */
   const bmi = () => {
-    if (!latestWeight() || !meterHeight()) {
+    if (!latestWeight || !meterHeight()) {
       return null
     }
 
-    return (latestWeight() / (meterHeight() ** 2)).toFixed(1)
+    return (latestWeight / (meterHeight() ** 2)).toFixed(1)
   }
 
   /** SBW(standard body weight): 標準体重 */
