@@ -1,5 +1,5 @@
 import axios from "@/libs/axios"
-import { PATH, ENDPOINTS } from '@/constants'
+import { ENDPOINTS } from '@/constants'
 import {
   WeightEntity,
   WeightMapper
@@ -24,7 +24,7 @@ export class WeightRepository {
   static fetchWeights = async (userId: string): Promise<Array<WeightEntity>> => {
     try {
       const res = await axios.get(
-        `${PATH}${ENDPOINTS.weight}`,
+        `${ENDPOINTS.weight}`,
         { 
           params: {
             filters: `userId[equals]${userId}`,
@@ -47,7 +47,7 @@ export class WeightRepository {
    static createWeight = async (weight: BaseWeight) => {
     try {
       const res = await axios.post(
-        `${PATH}${ENDPOINTS.weight}`,
+        `${ENDPOINTS.weight}`,
         {
           userId: weight.userId,
           weight: weight.weight,
@@ -68,7 +68,7 @@ export class WeightRepository {
    static patchWeight = async (weight: updateWeight) => {
     try {
       const res = await axios.patch(
-        `${PATH}${ENDPOINTS.weight}/${weight.contentId}`,
+        `${ENDPOINTS.weight}/${weight.contentId}`,
         {
           userId: weight.userId,
           weight: weight.weight,

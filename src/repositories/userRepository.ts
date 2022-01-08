@@ -5,7 +5,7 @@ import {
   UserEntity,
   UserMapper,
 } from '@/entities'
-import { PATH, ENDPOINTS } from '@/constants'
+import { ENDPOINTS } from '@/constants'
 
 type BaseUser = {
   userId: string
@@ -28,7 +28,7 @@ export class UserRepository {
    */
   static fetchUser = async (userId: number): Promise<UserEntity | null> => {
     try {
-      const res = await axios.get(`${PATH}${ENDPOINTS.user}`, {
+      const res = await axios.get(`${ENDPOINTS.user}`, {
         params: {
           filters: `userId[equals]${userId}`,
           limit: 1,
@@ -51,7 +51,7 @@ export class UserRepository {
     const height = parseInt(user.height, 10)
     try {
       return await axios.post(
-        `${PATH}${ENDPOINTS.user}`,
+        `${ENDPOINTS.user}`,
         {
           userId: user.userId,
           firstName: user.firstName,
@@ -74,7 +74,7 @@ export class UserRepository {
    static updateUser = async (user: updateUser): Promise<null> => {
     const height = parseInt(user.height, 10)
     try {
-      return await axios.patch(`${PATH}${ENDPOINTS.user}/${user.contentId}`, {
+      return await axios.patch(`${ENDPOINTS.user}/${user.contentId}`, {
         userId: user.userId,
         firstName: user.firstName,
         lastName: user.lastName,
