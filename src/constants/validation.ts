@@ -8,8 +8,8 @@
     message: 'This field is required',
   },
   minLength: {
-    value: 6,
-    message: 'Has to be longer than 6 characters',
+    value: 1,
+    message: 'Has to be longer than 1 characters',
   },
   maxLength: {
     value: 120,
