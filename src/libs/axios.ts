@@ -3,8 +3,7 @@ import axiosBase from 'axios'
 const axios = axiosBase.create({
   baseURL: 'https://takakimiyajima.microcms.io/api/v1',
   headers: {
-    /** FIXME: fix token for POST */
-    'X-MICROCMS-API-KEY': process.env.API_KEY ?? '879978592c79415e8d7c161468cbd5767909',
+    'X-MICROCMS-API-KEY': process.env.API_KEY ?? process.env.API_KEY_FOR_BROWSER,
     'Content-Type': 'application/json'
    }
 })
