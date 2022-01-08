@@ -16,7 +16,7 @@ type Props = {
 
 /** Logo for SP */
 const Logo = () => (
-  <Link href='/' passHref>
+  <Link href='/' passHref as={'/'}>
     <a>
       <Image
         src="/sp/logo.png"

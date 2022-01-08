@@ -39,7 +39,7 @@ const Component = ({ className, visible }: Props) => {
           <dd>
             {menus.map(({ path, text }, index) => (
               path !== pathname && 
-                <Link href={path} passHref key={`menu-${index}`}>
+                <Link href={path} passHref key={`menu-${index}`} as={path}>
                   <a className="menuLink">{text}</a>
                 </Link>
             ))}
