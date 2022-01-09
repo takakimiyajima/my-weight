@@ -8,7 +8,7 @@ import '@/styles/globals.css'
 import { UserAgentContextProvider } from '@/contexts/userAgent/userAgentProvider'
 
 type Props = {
-  userAgent?: string;
+  uaString?: string;
 } & AppProps
 
 export const NeedLogin = ({ children }) => {
